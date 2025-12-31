@@ -1,10 +1,10 @@
 {
-    "version": "14.0.00",
+    "version": "14.0.01",
     "description": "Reverse proxy tool.",
     "homepage": "https://www.dogfight360.com/blog/18682",
     "license": "Freeware",
-    "url": "https://www.dogfight360.com/blog/wp-content/uploads/2025/12/steamcommunity_302_AMD64_V14.0.00.zip",
-    "hash": "3ae0c9de7b6bb87aa2c74a6e5c3cac7d54d0feb79a2f8aa955d980b70e857e72",
+    "url": "https://www.dogfight360.com/blog/wp-content/uploads/2025/12/steamcommunity_302_AMD64_V14.0.01.zip",
+    "hash": "a8381fd8b14cda3200c30300f40eebeee08f033a5476ea04c86d711b6139e0b8",
     "pre_install": "ni \"$dir\\S302.ini\" -ItemType File",
     "installer": {
         "script": [
