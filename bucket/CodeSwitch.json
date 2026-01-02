@@ -27,10 +27,6 @@
             "Code Switch"
         ]
     ],
-    "pre_install": [
-        "ensure \"$dir\\code-switch\"",
-        "ensure \"$persist_dir\\code-switch\""
-    ],
     "post_install": [
         "$source = Join-Path $env:USERPROFILE '.code-switch'",
         "$target = Join-Path $persist_dir 'code-switch'",
