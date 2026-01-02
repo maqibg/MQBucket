@@ -1,0 +1,46 @@
+{
+    "version": "2.6.9",
+    "description": "Code Switch：一站式管理 Claude Code / Codex / Gemini CLI 的供应商切换、代理与用量统计",
+    "homepage": "https://github.com/Rogers-F/code-switch-R",
+    "license": "Apache-2.0",
+    "notes": [
+        "用户配置目录（供应商/数据库/更新状态等）：%USERPROFILE%\\.code-switch\\",
+        "Gemini CLI 配置目录：%USERPROFILE%\\.gemini\\（Code Switch 会写入 .env / settings.json 等；本包不接管该目录）",
+        "本包会将 %USERPROFILE%\\.code-switch\\ 迁移到 Scoop 的 persist 并创建链接，便于备份/迁移与跨版本保留",
+        "建议在应用设置中关闭内置“自动检查更新/自动更新”，避免与 Scoop 更新冲突"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/Rogers-F/code-switch-R/releases/download/v2.6.9/CodeSwitch.exe",
+            "hash": "82e3d1314b583bebc8babc26470f0e57d1f379d23018a3706eb0944c4b9ad1f5"
+        }
+    },
+    "bin": [
+        [
+            "CodeSwitch.exe",
+            "codeswitch"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "CodeSwitch.exe",
+            "Code Switch"
+        ]
+    ],
+    "persist": [
+        [
+            "$env:USERPROFILE\\.code-switch",
+            "code-switch"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/Rogers-F/code-switch-R"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/Rogers-F/code-switch-R/releases/download/v$version/CodeSwitch.exe"
+            }
+        }
+    }
+}

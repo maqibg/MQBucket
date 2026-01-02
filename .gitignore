@@ -3,3 +3,9 @@
 ._*
 page.html
 checkver-*.html
+
+# Codex/Agent 生成的本地文件（不要提交）
+AGENTS.md
+
+# 本地临时目录（不要提交）
+临时/
