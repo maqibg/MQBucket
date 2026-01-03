@@ -1,0 +1,34 @@
+{
+    "version": "1.5.0",
+    "description": "A free, open-source app store for GitHub releases - browse, discover, and install apps with one click",
+    "homepage": "https://github.com/rainxchzed/Github-Store",
+    "license": "Apache-2.0",
+    "notes": [
+        "GitHub Store 是一个跨平台的 GitHub Releases 应用商店",
+        "支持发现、安装和更新 GitHub 上发布的应用程序",
+        "安装完成后可通过开始菜单启动"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/rainxchzed/Github-Store/releases/download/1.5.0/GitHub.Store-1.5.0.msi",
+            "hash": "fb5695322cf76ce7d153b0715256cdad56071c68fa42a074bcf2af3fd6a93f0b"
+        }
+    },
+    "bin": "GitHub Store\\GitHub Store.exe",
+    "shortcuts": [
+        [
+            "GitHub Store\\GitHub Store.exe",
+            "GitHub Store"
+        ]
+    ],
+    "checkver": {
+        "github": "https://github.com/rainxchzed/Github-Store"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/rainxchzed/Github-Store/releases/download/$version/GitHub.Store-$version.msi"
+            }
+        }
+    }
+}
