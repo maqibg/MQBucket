@@ -5,7 +5,7 @@
     "license": "MIT",
     "notes": [
         "GitHub Stars Manager 是一个管理 GitHub Star 仓库的工具",
-        "用户数据由 Scoop 持久化管理",
+        "用户数据存储在: %APPDATA%\\GitHub Stars Manager\\",
         "包含: GitHub token、仓库数据、AI配置、WebDAV配置等"
     ],
     "architecture": {
@@ -23,12 +23,6 @@
         [
             "GitHub Stars Manager.exe",
             "GitHub Stars Manager"
-        ]
-    ],
-    "persist": [
-        [
-            "$env:APPDATA\\GitHub Stars Manager",
-            "data"
         ]
     ],
     "checkver": {
