@@ -11,13 +11,14 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/rainxchzed/Github-Store/releases/download/1.5.0/GitHub.Store-1.5.0.msi",
-            "hash": "fb5695322cf76ce7d153b0715256cdad56071c68fa42a074bcf2af3fd6a93f0b"
+            "hash": "fb5695322cf76ce7d153b0715256cdad56071c68fa42a074bcf2af3fd6a93f0b",
+            "extract_dir": "GitHub-Store"
         }
     },
-    "bin": "GitHub-Store\\GitHub-Store.exe",
+    "bin": "GitHub-Store.exe",
     "shortcuts": [
         [
-            "GitHub-Store\\GitHub-Store.exe",
+            "GitHub-Store.exe",
             "GitHub Store"
         ]
     ],
@@ -27,7 +28,8 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/rainxchzed/Github-Store/releases/download/$version/GitHub.Store-$version.msi"
+                "url": "https://github.com/rainxchzed/Github-Store/releases/download/$version/GitHub.Store-$version.msi",
+                "extract_dir": "GitHub-Store"
             }
         }
     }
