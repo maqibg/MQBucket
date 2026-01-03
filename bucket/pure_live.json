@@ -6,7 +6,7 @@
   "license": "AGPL-3.0-only",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/liuchuancong/pure_live/releases/download/v2.0.11/PureLive-2.0.11+22-windows-x64.msix",
+      "url": "https://github.com/liuchuancong/pure_live/releases/download/v2.0.11/PureLive-2.0.11+22-windows-x64.msix#/dl.7z",
       "hash": "fb5f958cf0ce871ae858520a68c5c941f5dab065be628ebd4a9b9961804f4a50"
     }
   },
@@ -15,9 +15,11 @@
   "autoupdate": {
     "architecture": {
       "64bit": {
-        "url": "https://github.com/liuchuancong/pure_live/releases/download/v$matchTag/PureLive-$version-windows-x64.msix"
+        "url": "https://github.com/liuchuancong/pure_live/releases/download/v$matchTag/PureLive-$version-windows-x64.msix#/dl.7z"
       }
     }
   },
+  "bin": "pure_live.exe",
+  "shortcuts": [["pure_live.exe", "Pure Live"]],
   "homepage": "https://github.com/liuchuancong/pure_live"
 }
