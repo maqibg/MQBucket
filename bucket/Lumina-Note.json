@@ -14,10 +14,7 @@
             "hash": "8b60a845bed04c7b2c8463787d5bde68e1a3d6893bc1dfe60734cc0859e4a5cf"
         }
     },
-    "pre_install": [
-        "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\" -Removal",
-        "Remove-Item \"$dir\\`$*\" -Force -Recurse -ErrorAction SilentlyContinue"
-    ],
+    "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
     "bin": "lumina-note.exe",
     "shortcuts": [
         [
