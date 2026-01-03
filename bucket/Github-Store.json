@@ -14,10 +14,10 @@
             "hash": "fb5695322cf76ce7d153b0715256cdad56071c68fa42a074bcf2af3fd6a93f0b"
         }
     },
-    "bin": "GitHub Store\\GitHub Store.exe",
+    "bin": "GitHub-Store\\GitHub-Store.exe",
     "shortcuts": [
         [
-            "GitHub Store\\GitHub Store.exe",
+            "GitHub-Store\\GitHub-Store.exe",
             "GitHub Store"
         ]
     ],
