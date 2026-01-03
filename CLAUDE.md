@@ -100,3 +100,115 @@ Keep one app/version bump per commit when possible.
 3. **Junction links**: For apps that require data in specific locations, use the `Mount-ExternalRuntimeData` function from AppsUtils.psm1
 
 4. **Multi-architecture support**: Define separate URLs/hashes under `architecture.64bit`, `architecture.32bit`, `architecture.arm64`
+
+## Bucket 编写注意事项
+
+### 安装包类型处理
+
+#### 1. Electron NSIS 安装包
+Electron 应用的 NSIS 安装包通常有嵌套结构：
+```json
+"url": "https://example.com/app-setup.exe#/dl.7z",
+"pre_install": [
+    "Expand-7zipArchive \"$dir\`$PLUGINSDIR\app-64.7z\" \"$dir\" -Removal",
+    "Remove-Item \"$dir\`$*\" -Force -Recurse -ErrorAction SilentlyContinue"
+]
+```
+- 使用 `#/dl.7z` 后缀让 Scoop 用 7z 解压 NSIS 包
+- 主程序在 `$PLUGINSDIR\app-64.7z` 中，需要二次解压
+- 删除 `$PLUGINSDIR`、`$R0` 等临时目录
+
+#### 2. Tauri NSIS 安装包
+Tauri 应用的 NSIS 包直接解压出可执行文件，**不需要二次解压**：
+```json
+"url": "https://example.com/app-setup.exe#/dl.7z",
+"pre_install": "Remove-Item \"$dir\`$*\", \"$dir\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue"
+```
+
+#### 3. MSI 安装包
+MSI 包可能有嵌套目录：
+```json
+"url": "https://example.com/app.msi",
+"extract_dir": "AppFolder"
+```
+
+#### 4. 便携版 ZIP/7z
+最简单的形式，通常不需要特殊处理：
+```json
+"url": "https://example.com/app-portable.zip",
+"extract_dir": "app-folder"
+```
+
+### 用户数据持久化
+
+#### Scoop persist 的限制
+- `persist` 只能处理**安装目录内**的相对路径
+- 不能直接使用 `$env:APPDATA` 等外部路径
+
+#### 外部数据目录持久化方案（推荐）
+使用 `post_install` 创建 Junction 链接，将外部路径指向 Scoop persist：
+
+```json
+"post_install": [
+    "$source = Join-Path $env:APPDATA 'AppName'",
+    "$target = Join-Path $persist_dir 'data'",
+    "ensure $target",
+    "",
+    "if (Test-Path $source) {",
+    "    $item = Get-Item -LiteralPath $source -Force",
+    "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+    "        Write-Host \"检测到已存在的联接点：$source，跳过创建\"",
+    "        return",
+    "    }",
+    "    & robocopy $source $target /E /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null",
+    "    $backup = \"$source.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')\"",
+    "    Move-Item -LiteralPath $source -Destination $backup -Force",
+    "}",
+    "",
+    "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
+],
+"persist": "data"
+```
+
+**效果**：
+- 真实数据存储在: `scoop\apps\AppName\persist\data\`
+- Junction 链接: `%APPDATA%\AppName\` → `persist\data\`
+
+### 常见应用框架的数据存储位置
+
+| 框架 | 默认数据路径 | 确定方式 |
+|------|-------------|----------|
+| Electron | `%APPDATA%\<productName>\` | 查看 `electron-builder.yml` 的 `productName` |
+| Tauri v2 | `%LOCALAPPDATA%\<identifier>\` | 查看 `tauri.conf.json` 的 `identifier` |
+| .NET WPF/WinForms | `%APPDATA%\<CompanyName>\<ProductName>\` | 查看 AssemblyInfo 或 app.config |
+| Flutter | `%APPDATA%\<appName>\` | 查看 pubspec.yaml 或 path_provider 配置 |
+
+### 分析项目的步骤
+
+1. **克隆源码**：`git clone --depth 1 <repo-url>`
+
+2. **识别技术栈**：
+   - `package.json` + `electron` → Electron
+   - `src-tauri/` + `tauri.conf.json` → Tauri
+   - `pubspec.yaml` + `flutter` → Flutter
+   - `*.csproj` → .NET
+
+3. **查找数据存储位置**：
+   - 搜索 `persist`、`localStorage`、`appDataDir`、`APPDATA` 等关键词
+   - 查看配置文件（electron-builder.yml、tauri.conf.json 等）
+
+4. **检查安装包结构**：
+   ```bash
+   7z l app-setup.exe | head -50
+   ```
+
+5. **测试安装**：验证目录结构和可执行文件路径
+
+### 常见问题排查
+
+| 错误 | 原因 | 解决方案 |
+|------|------|----------|
+| `File doesn't exist` | 可执行文件路径错误 | 检查解压后的实际目录结构 |
+| `Failed to extract app-64.7z` | 不存在嵌套的 7z | Tauri 等框架不需要二次解压 |
+| `文件名、目录名或卷标语法不正确` | persist 使用了外部路径 | 改用 post_install + Junction 方案 |
+| 哈希错误 | 开发者覆盖了同版本文件 | 重新计算哈希或等待新版本 |
