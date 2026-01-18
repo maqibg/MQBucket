@@ -1,5 +1,3 @@
-#Requires -Version 7.0
-
 # Generate Bucket Status JSON
 # 用于生成 status.json，供 bucket-index.html 展示版本检测结果
 
@@ -228,7 +226,7 @@ function Test-AppVersion {
 $allApps = @()
 
 if (($Token -or $env:GITHUB_TOKEN) -and $manifests.Count -gt 1) {
-    # 并行模式：10个一批，间隔2秒
+    # 批次模式：10个一批，间隔2秒（串行执行，兼容 PowerShell 5.1）
     $batchSize = 10
     $batches = [Math]::Ceiling($manifests.Count / $batchSize)
 
@@ -239,103 +237,9 @@ if (($Token -or $env:GITHUB_TOKEN) -and $manifests.Count -gt 1) {
 
         Write-Host "批次 $($i+1)/$batches (检测 $($batch.Count) 个应用)..." -ForegroundColor Cyan
 
-        # 并行执行当前批次
-        $batchResults = $batch | ForEach-Object -Parallel {
-            $manifest = $_
-            $checkverPath = $using:checkverPath
-            $bucketDir = $using:BucketDir
-            $maxLogLength = $using:MaxLogLength
-
-            # 在并行作用域中重新定义函数
-            function Test-AppVersion {
-                param($manifest, $checkverPath, $bucketDir, $maxLogLength)
-
-                $appName = $manifest.BaseName
-                $startTime = Get-Date
-
-                $manifestContent = Get-Content $manifest.FullName -Raw | ConvertFrom-Json
-                $bucketVersion = $manifestContent.version
-
-                $checkverInfo = @{
-                    mode = "unknown"; url = $null; regex = $null; jsonpath = $null; script = $false
-                }
-
-                if ($manifestContent.checkver) {
-                    $cv = $manifestContent.checkver
-                    if ($cv -is [string]) {
-                        if ($cv -eq "github") { $checkverInfo.mode = "github" }
-                        else { $checkverInfo.mode = "regex"; $checkverInfo.regex = $cv }
-                    } elseif ($cv -is [hashtable] -or $cv -is [PSCustomObject]) {
-                        if ($cv.github) { $checkverInfo.mode = "github"; $checkverInfo.url = $cv.github }
-                        elseif ($cv.url) { $checkverInfo.mode = "url"; $checkverInfo.url = $cv.url }
-                        if ($cv.regex) { $checkverInfo.regex = $cv.regex }
-                        if ($cv.jsonpath) { $checkverInfo.jsonpath = $cv.jsonpath }
-                        if ($cv.script) { $checkverInfo.script = $true }
-                    }
-                }
-
-                $checkverOutput = ""; $checkverError = ""; $latestVersion = $bucketVersion
-                $status = "failed"; $message = $null
-
-                try {
-                    $output = & pwsh -NoProfile -Command "& '$checkverPath' -App '$appName' -Dir '$bucketDir' 2>&1"
-                    $checkverOutput = ($output | Out-String).Trim()
-
-                    if ($checkverOutput -match "^$appName`: (.+)$") {
-                        $versionInfo = $matches[1]
-                        if ($versionInfo -match "^([\d\.\-\w]+)$") {
-                            $latestVersion = $matches[1]; $status = "latest"
-                        } elseif ($versionInfo -match "^([\d\.\-\w]+) \(scoop version is ([\d\.\-\w]+)\)") {
-                            $latestVersion = $matches[1]; $status = "outdated"
-                            $message = "新版本可用: $latestVersion (当前: $bucketVersion)"
-                        } else {
-                            $status = "failed"; $message = $versionInfo
-                        }
-                    } elseif ($checkverOutput -match "ERROR") {
-                        $status = "failed"
-                        $message = ($checkverOutput -split "`n" | Select-Object -First 3) -join " "
-                    } else {
-                        $status = "failed"; $message = "无法解析 checkver 输出"
-                    }
-                } catch {
-                    $checkverError = $_.Exception.Message
-                    $status = "failed"; $message = "执行失败: $checkverError"
-                }
-
-                $duration = ((Get-Date) - $startTime).TotalMilliseconds
-
-                if ($checkverOutput.Length -gt $maxLogLength) {
-                    $checkverOutput = $checkverOutput.Substring(0, $maxLogLength) + "`n... (truncated)"
-                }
-                if ($checkverError.Length -gt $maxLogLength) {
-                    $checkverError = $checkverError.Substring(0, $maxLogLength) + "`n... (truncated)"
-                }
-
-                [pscustomobject]@{
-                    name = $appName
-                    manifestPath = "bucket/$($manifest.Name)"
-                    homepage = $manifestContent.homepage
-                    description = $manifestContent.description
-                    bucketVersion = $bucketVersion
-                    latestVersion = $latestVersion
-                    status = $status
-                    checkedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-                    durationMs = [int]$duration
-                    autoupdate = @{ present = [bool]$manifestContent.autoupdate; hint = $null }
-                    checkver = $checkverInfo
-                    message = $message
-                    log = @{
-                        stdout = if ($checkverOutput) { $checkverOutput } else { $null }
-                        stderr = if ($checkverError) { $checkverError } else { $null }
-                    }
-                }
-            }
-
-            Test-AppVersion -manifest $manifest -checkverPath $checkverPath -bucketDir $bucketDir -maxLogLength $maxLogLength
-        } -ThrottleLimit 10
-
-        # 收集结果并显示（注意：使用 $appInfo 而不是 $app）
-        foreach ($appInfo in $batchResults) {
+        # 串行执行当前批次（兼容 PowerShell 5.1）
+        foreach ($manifest in $batch) {
+            $appInfo = Test-AppVersion -manifest $manifest -checkverPath $checkverPath -bucketDir $BucketDir -maxLogLength $MaxLogLength
             $allApps += $appInfo
             $color = switch ($appInfo.status) {
                 "latest" { "Green" }
