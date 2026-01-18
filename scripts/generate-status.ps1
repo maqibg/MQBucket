@@ -4,10 +4,22 @@
 param(
     [string]$BucketDir = "bucket",
     [string]$OutFile = "public/status.json",
-    [int]$MaxLogLength = 8192
+    [int]$MaxLogLength = 8192,
+    [string]$Application = "",
+    [string]$Token = ""
 )
 
 $ErrorActionPreference = "Stop"
+
+# 设置 GitHub Token（如果提供）
+if ($Token) {
+    $env:GITHUB_TOKEN = $Token
+    Write-Host "✓ 已设置 GitHub Token" -ForegroundColor Green
+} elseif ($env:GITHUB_TOKEN) {
+    Write-Host "✓ 使用环境变量中的 GitHub Token" -ForegroundColor Green
+} else {
+    Write-Warning "未设置 GitHub Token，API 限流为 60 次/小时"
+}
 
 # 初始化结果结构
 $result = @{
@@ -74,16 +86,32 @@ if (Test-Path $checkverPath) {
 }
 
 # 获取所有 manifest 文件
-$manifests = Get-ChildItem -Path $BucketDir -Filter "*.json" | Where-Object { $_.Name -ne "app-name.json.template" }
+if ($Application) {
+    # 单个应用检测
+    $manifestPath = Join-Path $BucketDir "$Application.json"
+    if (-not (Test-Path $manifestPath)) {
+        Write-Error "找不到应用 manifest: $manifestPath"
+        exit 1
+    }
+    $manifests = @(Get-Item $manifestPath)
+    Write-Host "开始检测单个应用: $Application"
+} else {
+    # 全部应用检测
+    $manifests = Get-ChildItem -Path $BucketDir -Filter "*.json" | Where-Object { $_.Name -ne "app-name.json.template" }
+    if ($Token -or $env:GITHUB_TOKEN) {
+        Write-Host "开始检测 $($manifests.Count) 个应用（并行模式：10个/批，间隔 2 秒）..." -ForegroundColor Cyan
+    } else {
+        Write-Host "开始检测 $($manifests.Count) 个应用（串行模式，每次间隔 2 秒）..." -ForegroundColor Yellow
+    }
+}
 $result.summary.total = $manifests.Count
 
-Write-Host "开始检测 $($manifests.Count) 个应用..."
+# 检测函数
+function Test-AppVersion {
+    param($manifest, $checkverPath, $bucketDir, $maxLogLength)
 
-foreach ($manifest in $manifests) {
     $appName = $manifest.BaseName
     $startTime = Get-Date
-
-    Write-Host "检测 $appName ..." -NoNewline
 
     # 读取 manifest 获取当前版本
     $manifestContent = Get-Content $manifest.FullName -Raw | ConvertFrom-Json
@@ -129,7 +157,7 @@ foreach ($manifest in $manifests) {
     $message = $null
 
     try {
-        $output = & pwsh -NoProfile -Command "& '$checkverPath' -App '$appName' -Dir '$BucketDir' 2>&1"
+        $output = & pwsh -NoProfile -Command "& '$checkverPath' -App '$appName' -Dir '$bucketDir' 2>&1"
         $checkverOutput = ($output | Out-String).Trim()
 
         # 解析输出
@@ -137,11 +165,9 @@ foreach ($manifest in $manifests) {
             $versionInfo = $matches[1]
 
             if ($versionInfo -match "^([\d\.\-\w]+)$") {
-                # 已是最新
                 $latestVersion = $matches[1]
                 $status = "latest"
             } elseif ($versionInfo -match "^([\d\.\-\w]+) \(scoop version is ([\d\.\-\w]+)\)") {
-                # 有新版本
                 $latestVersion = $matches[1]
                 $status = "outdated"
                 $message = "新版本可用: $latestVersion (当前: $bucketVersion)"
@@ -165,15 +191,15 @@ foreach ($manifest in $manifests) {
     $duration = ((Get-Date) - $startTime).TotalMilliseconds
 
     # 限制日志长度
-    if ($checkverOutput.Length -gt $MaxLogLength) {
-        $checkverOutput = $checkverOutput.Substring(0, $MaxLogLength) + "`n... (truncated)"
+    if ($checkverOutput.Length -gt $maxLogLength) {
+        $checkverOutput = $checkverOutput.Substring(0, $maxLogLength) + "`n... (truncated)"
     }
-    if ($checkverError.Length -gt $MaxLogLength) {
-        $checkverError = $checkverError.Substring(0, $MaxLogLength) + "`n... (truncated)"
+    if ($checkverError.Length -gt $maxLogLength) {
+        $checkverError = $checkverError.Substring(0, $maxLogLength) + "`n... (truncated)"
     }
 
-    # 构建应用信息
-    $appInfo = @{
+    # 返回应用信息（使用 PSCustomObject 避免字符串化）
+    [pscustomobject]@{
         name = $appName
         manifestPath = "bucket/$($manifest.Name)"
         homepage = $manifestContent.homepage
@@ -194,24 +220,167 @@ foreach ($manifest in $manifests) {
             stderr = if ($checkverError) { $checkverError } else { $null }
         }
     }
+}
 
-    $result.apps += $appInfo
+# 主检测循环
+$allApps = @()
 
-    # 更新统计
-    switch ($status) {
+if (($Token -or $env:GITHUB_TOKEN) -and $manifests.Count -gt 1) {
+    # 并行模式：10个一批，间隔2秒
+    $batchSize = 10
+    $batches = [Math]::Ceiling($manifests.Count / $batchSize)
+
+    for ($i = 0; $i -lt $batches; $i++) {
+        $start = $i * $batchSize
+        $end = [Math]::Min($start + $batchSize, $manifests.Count)
+        $batch = $manifests[$start..($end-1)]
+
+        Write-Host "批次 $($i+1)/$batches (检测 $($batch.Count) 个应用)..." -ForegroundColor Cyan
+
+        # 并行执行当前批次
+        $batchResults = $batch | ForEach-Object -Parallel {
+            $manifest = $_
+            $checkverPath = $using:checkverPath
+            $bucketDir = $using:BucketDir
+            $maxLogLength = $using:MaxLogLength
+
+            # 在并行作用域中重新定义函数
+            function Test-AppVersion {
+                param($manifest, $checkverPath, $bucketDir, $maxLogLength)
+
+                $appName = $manifest.BaseName
+                $startTime = Get-Date
+
+                $manifestContent = Get-Content $manifest.FullName -Raw | ConvertFrom-Json
+                $bucketVersion = $manifestContent.version
+
+                $checkverInfo = @{
+                    mode = "unknown"; url = $null; regex = $null; jsonpath = $null; script = $false
+                }
+
+                if ($manifestContent.checkver) {
+                    $cv = $manifestContent.checkver
+                    if ($cv -is [string]) {
+                        if ($cv -eq "github") { $checkverInfo.mode = "github" }
+                        else { $checkverInfo.mode = "regex"; $checkverInfo.regex = $cv }
+                    } elseif ($cv -is [hashtable] -or $cv -is [PSCustomObject]) {
+                        if ($cv.github) { $checkverInfo.mode = "github"; $checkverInfo.url = $cv.github }
+                        elseif ($cv.url) { $checkverInfo.mode = "url"; $checkverInfo.url = $cv.url }
+                        if ($cv.regex) { $checkverInfo.regex = $cv.regex }
+                        if ($cv.jsonpath) { $checkverInfo.jsonpath = $cv.jsonpath }
+                        if ($cv.script) { $checkverInfo.script = $true }
+                    }
+                }
+
+                $checkverOutput = ""; $checkverError = ""; $latestVersion = $bucketVersion
+                $status = "failed"; $message = $null
+
+                try {
+                    $output = & pwsh -NoProfile -Command "& '$checkverPath' -App '$appName' -Dir '$bucketDir' 2>&1"
+                    $checkverOutput = ($output | Out-String).Trim()
+
+                    if ($checkverOutput -match "^$appName`: (.+)$") {
+                        $versionInfo = $matches[1]
+                        if ($versionInfo -match "^([\d\.\-\w]+)$") {
+                            $latestVersion = $matches[1]; $status = "latest"
+                        } elseif ($versionInfo -match "^([\d\.\-\w]+) \(scoop version is ([\d\.\-\w]+)\)") {
+                            $latestVersion = $matches[1]; $status = "outdated"
+                            $message = "新版本可用: $latestVersion (当前: $bucketVersion)"
+                        } else {
+                            $status = "failed"; $message = $versionInfo
+                        }
+                    } elseif ($checkverOutput -match "ERROR") {
+                        $status = "failed"
+                        $message = ($checkverOutput -split "`n" | Select-Object -First 3) -join " "
+                    } else {
+                        $status = "failed"; $message = "无法解析 checkver 输出"
+                    }
+                } catch {
+                    $checkverError = $_.Exception.Message
+                    $status = "failed"; $message = "执行失败: $checkverError"
+                }
+
+                $duration = ((Get-Date) - $startTime).TotalMilliseconds
+
+                if ($checkverOutput.Length -gt $maxLogLength) {
+                    $checkverOutput = $checkverOutput.Substring(0, $maxLogLength) + "`n... (truncated)"
+                }
+                if ($checkverError.Length -gt $maxLogLength) {
+                    $checkverError = $checkverError.Substring(0, $maxLogLength) + "`n... (truncated)"
+                }
+
+                [pscustomobject]@{
+                    name = $appName
+                    manifestPath = "bucket/$($manifest.Name)"
+                    homepage = $manifestContent.homepage
+                    description = $manifestContent.description
+                    bucketVersion = $bucketVersion
+                    latestVersion = $latestVersion
+                    status = $status
+                    checkedAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+                    durationMs = [int]$duration
+                    autoupdate = @{ present = [bool]$manifestContent.autoupdate; hint = $null }
+                    checkver = $checkverInfo
+                    message = $message
+                    log = @{
+                        stdout = if ($checkverOutput) { $checkverOutput } else { $null }
+                        stderr = if ($checkverError) { $checkverError } else { $null }
+                    }
+                }
+            }
+
+            Test-AppVersion -manifest $manifest -checkverPath $checkverPath -bucketDir $bucketDir -maxLogLength $maxLogLength
+        } -ThrottleLimit 10
+
+        # 收集结果并显示（注意：使用 $appInfo 而不是 $app）
+        foreach ($appInfo in $batchResults) {
+            $allApps += $appInfo
+            $color = switch ($appInfo.status) {
+                "latest" { "Green" }
+                "outdated" { "Yellow" }
+                "failed" { "Red" }
+                default { "Gray" }
+            }
+            Write-Host "  $($appInfo.name) [$($appInfo.status)] $($appInfo.latestVersion)" -ForegroundColor $color
+        }
+
+        # 批次间延迟
+        if ($i -lt $batches - 1) {
+            Start-Sleep -Seconds 2
+        }
+    }
+} else {
+    # 串行模式（无token或单个应用）
+    foreach ($manifest in $manifests) {
+        if ($manifests.IndexOf($manifest) -gt 0) {
+            Start-Sleep -Seconds 2
+        }
+
+        Write-Host "检测 $($manifest.BaseName) ..." -NoNewline
+        $appInfo = Test-AppVersion -manifest $manifest -checkverPath $checkverPath -bucketDir $BucketDir -maxLogLength $MaxLogLength
+        $allApps += $appInfo
+
+        $color = switch ($appInfo.status) {
+            "latest" { "Green" }
+            "outdated" { "Yellow" }
+            "failed" { "Red" }
+            default { "Gray" }
+        }
+        Write-Host " [$($appInfo.status)] $($appInfo.latestVersion)" -ForegroundColor $color
+    }
+}
+
+# 添加所有应用到结果并更新统计
+$result.apps = $allApps
+
+foreach ($appInfo in $allApps) {
+    switch ($appInfo.status) {
         "latest" { $result.summary.latest++ }
         "outdated" { $result.summary.outdated++ }
         "failed" { $result.summary.failed++ }
     }
-
-    Write-Host " [$status] $latestVersion" -ForegroundColor $(
-        switch ($status) {
-            "latest" { "Green" }
-            "outdated" { "Yellow" }
-            "failed" { "Red" }
-        }
-    )
 }
+
 
 # 确保输出目录存在
 $outDir = Split-Path $OutFile -Parent
