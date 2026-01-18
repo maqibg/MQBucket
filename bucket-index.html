@@ -6,15 +6,17 @@
 <title>MQBucket - Scoop Bucket 状态看板</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;line-height:1.6}
+body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;line-height:1.6;font-size:16px}
 .container{max-width:1400px;margin:0 auto;padding:20px}
-.header{margin-bottom:30px}
-.header h1{color:#4ec9b0;font-size:28px;margin-bottom:8px}
-.header .meta{color:#858585;font-size:13px}
+.header{margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.header-left h1{color:#4ec9b0;font-size:36px;margin-bottom:8px}
+.header-left .meta{color:#858585;font-size:15px}
+.btn-github{background:#238636;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block;transition:background .2s}
+.btn-github:hover{background:#2ea043}
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:25px}
 .card{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:20px;text-align:center}
-.card .label{color:#858585;font-size:12px;text-transform:uppercase;margin-bottom:8px}
-.card .value{font-size:32px;font-weight:bold}
+.card .label{color:#858585;font-size:14px;text-transform:uppercase;margin-bottom:8px}
+.card .value{font-size:40px;font-weight:bold}
 .card.latest .value{color:#4ec9b0}
 .card.outdated .value{color:#dcdcaa}
 .card.failed .value{color:#f48771}
@@ -26,12 +28,12 @@ body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;line
 .table-container{background:#252526;border:1px solid #3e3e42;border-radius:6px;overflow:hidden}
 table{width:100%;border-collapse:collapse}
 thead{background:#2d2d30;position:sticky;top:0;z-index:10}
-th{padding:12px;text-align:left;font-size:12px;color:#858585;text-transform:uppercase;border-bottom:1px solid #3e3e42;cursor:pointer;user-select:none}
+th{padding:12px;text-align:left;font-size:14px;color:#858585;text-transform:uppercase;border-bottom:1px solid #3e3e42;cursor:pointer;user-select:none}
 th:hover{background:#3e3e42}
 th.sortable::after{content:'⇅';margin-left:5px;opacity:.3}
 th.sort-asc::after{content:'↑';opacity:1}
 th.sort-desc::after{content:'↓';opacity:1}
-td{padding:12px;border-bottom:1px solid #3e3e42;font-size:13px}
+td{padding:12px;border-bottom:1px solid #3e3e42;font-size:15px}
 tr:hover{background:#2d2d30}
 .status-badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold}
 .status-latest{background:#2d5a3a;color:#4ec9b0}
@@ -45,6 +47,12 @@ tr:hover{background:#2d2d30}
 .empty-state h2{color:#d4d4d4;margin-bottom:10px}
 .toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:12px 18px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}
 .toast.show{opacity:1}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000}
+.modal.show{display:flex}
+.modal-content{background:#252526;border:1px solid #3e3e42;border-radius:8px;padding:30px;max-width:600px;width:90%}
+.modal-content h2{color:#4ec9b0;margin-bottom:15px;font-size:20px}
+.modal-content pre{background:#1e1e1e;padding:15px;border-radius:4px;overflow-x:auto;margin:15px 0;font-size:13px;color:#ce9178}
+.modal-content button{margin-top:15px}
 .loading{text-align:center;padding:40px;color:#858585}
 .detail-row{background:#1e1e1e;display:none}
 .detail-row.show{display:table-row}
@@ -55,12 +63,15 @@ tr:hover{background:#2d2d30}
 <body>
 <div class="container">
 <div class="header">
+<div class="header-left">
 <h1>MQBucket - Scoop Bucket 状态看板</h1>
 <div class="meta">
 <span id="lastUpdate">加载中...</span>
 <span style="margin:0 10px">|</span>
 <span>数据源: <strong id="dataSource">CI</strong></span>
 </div>
+</div>
+<a href="https://github.com/maqibg/MQBucket" target="_blank" class="btn-github">🏠 访问 Bucket 主页</a>
 </div>
 
 <div class="summary">
@@ -95,6 +106,8 @@ tr:hover{background:#2d2d30}
 <option value="status">按状态</option>
 <option value="duration">按耗时</option>
 </select>
+<button onclick="reloadData()">🔄 重新加载数据</button>
+<button onclick="showCheckHelp()">🔍 手动检测版本</button>
 </div>
 
 <div class="table-container">
@@ -117,6 +130,20 @@ tr:hover{background:#2d2d30}
 </div>
 
 <div class="toast" id="toast"></div>
+
+<div class="modal" id="checkModal">
+<div class="modal-content">
+<h2>🔍 手动检测版本</h2>
+<p>要手动检测所有应用的最新版本，请在终端运行以下命令：</p>
+<pre>pwsh -File scripts/generate-status.ps1 -Token "your_token"</pre>
+<p style="margin-top:15px;color:#858585;font-size:13px">
+检测完成后，点击"重新加载数据"按钮刷新页面。<br>
+注意：检测 36 个应用约需 72 秒（每个应用间隔 2 秒）。<br>
+<strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong>
+</p>
+<button class="btn-sm" onclick="closeModal()">关闭</button>
+</div>
+</div>
 
 <script>
 let statusData = null;
@@ -206,6 +233,7 @@ function renderTable() {
       <td>${app.durationMs ? (app.durationMs / 1000).toFixed(2) + 's' : '-'}</td>
       <td class="actions">
         <button class="btn-sm" onclick="copyInstall('${app.name}')">复制安装</button>
+        <button class="btn-sm" onclick="showCheckApp('${app.name}')">检测</button>
         <button class="btn-sm" onclick="toggleDetail('${app.name}')">详情</button>
       </td>
     </tr>
@@ -244,6 +272,36 @@ function showToast(message) {
   toast.textContent = message;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+function reloadData() {
+  showToast('正在重新加载数据...');
+  location.reload();
+}
+
+function showCheckHelp() {
+  document.getElementById('checkModal').classList.add('show');
+}
+
+function showCheckApp(appName) {
+  const modal = document.getElementById('checkModal');
+  const content = modal.querySelector('.modal-content');
+  content.innerHTML = `
+    <h2>🔍 检测 ${appName}</h2>
+    <p>要检测此应用的最新版本，请在终端运行：</p>
+    <pre>pwsh -File scripts/generate-status.ps1 -Application ${appName} -Token "your_token"</pre>
+    <p style="margin-top:15px;color:#858585;font-size:13px">
+    检测完成后，点击"重新加载数据"按钮刷新页面。<br>
+    注意：单个应用检测约需 2-5 秒。<br>
+    <strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong>
+    </p>
+    <button class="btn-sm" onclick="closeModal()">关闭</button>
+  `;
+  modal.classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('checkModal').classList.remove('show');
 }
 
 document.getElementById('searchInput').addEventListener('input', filterAndRender);
