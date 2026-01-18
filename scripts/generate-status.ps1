@@ -257,8 +257,9 @@ if (($Token -or $env:GITHUB_TOKEN) -and $manifests.Count -gt 1) {
     }
 } else {
     # 串行模式（无token或单个应用）
+    $index = 0
     foreach ($manifest in $manifests) {
-        if ($manifests.IndexOf($manifest) -gt 0) {
+        if ($index -gt 0) {
             Start-Sleep -Seconds 2
         }
 
@@ -273,6 +274,7 @@ if (($Token -or $env:GITHUB_TOKEN) -and $manifests.Count -gt 1) {
             default { "Gray" }
         }
         Write-Host " [$($appInfo.status)] $($appInfo.latestVersion)" -ForegroundColor $color
+        $index++
     }
 }
 
