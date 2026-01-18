@@ -1,0 +1,42 @@
+{
+    "version": "2025.02",
+    "description": "图拉丁吧硬件检测工具箱，是开源、免费、绿色、纯净的硬件检测工具合集.",
+    "homepage": "http://www.tbtool.cn/",
+    "license": "Freeware",
+    "url": "https://alist.sqliuchang.com/p/scoop/%E5%9B%BE%E5%90%A7%E5%B7%A5%E5%85%B7%E7%AE%B1202502%E7%BB%BF%E8%89%B2%E6%AD%A3%E5%BC%8F%E7%89%88.rar",
+    "hash": "E8490DBC7B1CBACF1754C8577CE7CAC94DCAF811D89FB323B6570BDDEC623129",
+    "pre_install": [
+        "# Create initial config files",
+        "if (!(Test-Path -Path \"$dir\\config.ini\")) {",
+        "    (New-Item -ItemType \"file\" -Path \"$dir\" -Name \"config.ini\") | Out-Null",
+        "}",
+        "if (!(Test-Path -Path \"$dir\\hwinfo.ini\")) {",
+        "    (New-Item -ItemType \"file\" -Path \"$dir\" -Name \"hwinfo.ini\") | Out-Null",
+        "}",
+        "if (!(Test-Path -Path \"$dir\\PnPDevice.ini\")) {",
+        "    (New-Item -ItemType \"file\" -Path \"$dir\" -Name \"PnPDevice.ini\") | Out-Null",
+        "}"
+    ],
+    "bin": [
+        [
+            "图吧工具箱2025.exe",
+            "tbtool"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "图吧工具箱2025.exe",
+            "图吧工具箱2025"
+        ]
+    ],
+    "persist": [
+        "config.ini",
+        "hwinfo.ini",
+        "PnPDevice.ini"
+    ],
+    "checkver": {
+        "url": "https://www.tbtool.cn/",
+        "regex": "软件版本 : ([\\d.]+)",
+        "reverse": true
+    }
+}

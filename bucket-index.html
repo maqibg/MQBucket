@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MQBucket - 安装命令</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;padding:20px;line-height:1.6}
+.container{max-width:900px;margin:0 auto}
+h1{color:#4ec9b0;margin-bottom:10px;font-size:24px}
+.section{background:#252526;border:1px solid #3e3e42;border-radius:4px;padding:15px;margin-bottom:15px}
+.cmd{background:#1e1e1e;border:1px solid #3e3e42;border-radius:3px;padding:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.cmd code{color:#ce9178;flex:1}
+.btn{background:#0e639c;color:#fff;border:none;padding:6px 12px;border-radius:3px;cursor:pointer;font-size:12px;transition:background .2s}
+.btn:hover{background:#1177bb}
+.btn:active{background:#0d5a8f}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:10px 15px;border-radius:4px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>MQBucket - Scoop 安装命令</h1>
+
+<div class="section">
+<h2 style="color:#569cd6;font-size:16px;margin-bottom:10px">添加 Bucket</h2>
+<div class="cmd">
+<code>scoop bucket add mqbucket https://github.com/maqibg/MQBucket</code>
+<button class="btn" onclick="copy(this)">复制</button>
+</div>
+</div>
+
+<div class="section">
+<h2 style="color:#569cd6;font-size:16px;margin-bottom:10px">安装应用</h2>
+<div class="grid">
+<div class="cmd"><code>scoop install mqbucket/AIO-Hub</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/aio-coding-hub</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Ani</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/CodeSwitch</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/CodeSwitchR</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/ccg-gateway</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/DnsTools</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Game-Cheats-Manager</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Github-Store</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/GithubStarsManager</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/KeymouseGo</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/LGHUB</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Lumina-Note</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/MusicTag</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Nexus_Terminal</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/PicList</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/PixPin</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Pot</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/QuickCut</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/SmartHostsTool</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/SoNovel</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/SteamCommunity-302</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Tai</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Tuboshu</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/Unihub</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/UsbEAm-Hosts-Editor</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/XTerminal</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/bbmusic</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/karing</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/kdeconnect</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/kikoplay</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/pure_live</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/res-downloader</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/sparkle</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/tbtool</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="cmd"><code>scoop install mqbucket/tdl</code><button class="btn" onclick="copy(this)">复制</button></div>
+</div>
+</div>
+</div>
+
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script>
+function copy(btn){
+const code=btn.previousElementSibling.textContent;
+navigator.clipboard.writeText(code).then(()=>{
+const toast=document.getElementById('toast');
+toast.classList.add('show');
+setTimeout(()=>toast.classList.remove('show'),2000);
+});
+}
+</script>
+</body>
+</html>
