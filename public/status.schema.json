@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Bucket Status Schema",
+  "description": "Schema for MQBucket status.json - version check results",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "source", "summary", "apps"],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version for compatibility"
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of generation"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["ci", "local"],
+      "description": "Data source: ci (GitHub Actions) or local (real-time)"
+    },
+    "repo": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "owner": { "type": "string" },
+        "ref": { "type": "string" },
+        "commit": { "type": "string" }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "scoopCheckver": {
+          "type": "object",
+          "properties": {
+            "path": { "type": "string" },
+            "version": { "type": "string" }
+          }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total", "latest", "outdated", "failed"],
+      "properties": {
+        "total": { "type": "integer", "minimum": 0 },
+        "latest": { "type": "integer", "minimum": 0 },
+        "outdated": { "type": "integer", "minimum": 0 },
+        "failed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "apps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "bucketVersion", "latestVersion", "status"],
+        "properties": {
+          "name": { "type": "string" },
+          "manifestPath": { "type": "string" },
+          "homepage": { "type": "string" },
+          "description": { "type": "string" },
+          "bucketVersion": { "type": "string" },
+          "latestVersion": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["latest", "outdated", "failed"]
+          },
+          "checkedAt": { "type": "string", "format": "date-time" },
+          "durationMs": { "type": "integer", "minimum": 0 },
+          "autoupdate": {
+            "type": "object",
+            "properties": {
+              "present": { "type": "boolean" },
+              "hint": { "type": ["string", "null"] }
+            }
+          },
+          "checkver": {
+            "type": "object",
+            "properties": {
+              "mode": { "type": "string" },
+              "url": { "type": ["string", "null"] },
+              "regex": { "type": ["string", "null"] },
+              "jsonpath": { "type": ["string", "null"] },
+              "script": { "type": "boolean" }
+            }
+          },
+          "message": { "type": ["string", "null"] },
+          "log": {
+            "type": "object",
+            "properties": {
+              "stdout": { "type": ["string", "null"] },
+              "stderr": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    }
+  }
+}

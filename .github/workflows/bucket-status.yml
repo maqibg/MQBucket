@@ -1,0 +1,87 @@
+name: Bucket Status
+
+on:
+  schedule:
+    # 每天 UTC 02:00 运行
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: bucket-status
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  generate-and-deploy:
+    runs-on: windows-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Scoop
+        shell: pwsh
+        run: |
+          Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+          if (-not (Get-Command scoop -ErrorAction SilentlyContinue)) {
+            Write-Host "安装 Scoop..."
+            iwr -useb get.scoop.sh -outfile 'install.ps1'
+            .\install.ps1 -RunAsAdmin
+            Remove-Item install.ps1
+          }
+          scoop --version
+
+          # 设置 SCOOP_HOME 环境变量
+          if (-not $env:SCOOP_HOME) {
+            $env:SCOOP_HOME = "$env:USERPROFILE\scoop"
+            echo "SCOOP_HOME=$env:SCOOP_HOME" >> $env:GITHUB_ENV
+          }
+
+      - name: Generate status.json
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          Write-Host "开始生成 status.json..."
+          pwsh -File scripts/generate-status.ps1 -BucketDir bucket -OutFile public/status.json
+
+          if (-not (Test-Path public/status.json)) {
+            Write-Error "status.json 生成失败"
+            exit 1
+          }
+
+          Write-Host "✅ status.json 生成成功"
+          Get-Content public/status.json -Head 20
+
+      - name: Prepare Pages artifact
+        shell: pwsh
+        run: |
+          Write-Host "准备 Pages 部署文件..."
+
+          # 复制 bucket-index.html 到 public 目录
+          Copy-Item bucket-index.html public/index.html -Force
+
+          # 复制 schema 文件
+          if (Test-Path public/status.schema.json) {
+            Write-Host "✅ Schema 文件已存在"
+          }
+
+          # 列出 public 目录内容
+          Write-Host "`n📁 Public 目录内容:"
+          Get-ChildItem public -Recurse | Format-Table Name, Length
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

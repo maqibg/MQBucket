@@ -13,3 +13,7 @@ AGENTS.md
 # 本地临时目录（不要提交）
 临时/
 CLAUDE.md
+.ace-tool/
+
+# Bucket Status 生成文件（由 CI 生成，不要提交）
+public/status.json

@@ -3,89 +3,276 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MQBucket - 安装命令</title>
+<title>MQBucket - Scoop Bucket 状态看板</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;padding:20px;line-height:1.6}
-.container{max-width:900px;margin:0 auto}
-h1{color:#4ec9b0;margin-bottom:10px;font-size:24px}
-.section{background:#252526;border:1px solid #3e3e42;border-radius:4px;padding:15px;margin-bottom:15px}
-.cmd{background:#1e1e1e;border:1px solid #3e3e42;border-radius:3px;padding:10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px}
-.cmd code{color:#ce9178;flex:1}
-.btn{background:#0e639c;color:#fff;border:none;padding:6px 12px;border-radius:3px;cursor:pointer;font-size:12px;transition:background .2s}
-.btn:hover{background:#1177bb}
-.btn:active{background:#0d5a8f}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
-.toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:10px 15px;border-radius:4px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
+body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;line-height:1.6}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+.header{margin-bottom:30px}
+.header h1{color:#4ec9b0;font-size:28px;margin-bottom:8px}
+.header .meta{color:#858585;font-size:13px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:25px}
+.card{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:20px;text-align:center}
+.card .label{color:#858585;font-size:12px;text-transform:uppercase;margin-bottom:8px}
+.card .value{font-size:32px;font-weight:bold}
+.card.latest .value{color:#4ec9b0}
+.card.outdated .value{color:#dcdcaa}
+.card.failed .value{color:#f48771}
+.toolbar{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:15px;margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.toolbar input{background:#1e1e1e;border:1px solid #3e3e42;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:13px;flex:1;min-width:200px}
+.toolbar select{background:#1e1e1e;border:1px solid #3e3e42;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:13px}
+.toolbar button{background:#0e639c;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;transition:background .2s}
+.toolbar button:hover{background:#1177bb}
+.table-container{background:#252526;border:1px solid #3e3e42;border-radius:6px;overflow:hidden}
+table{width:100%;border-collapse:collapse}
+thead{background:#2d2d30;position:sticky;top:0;z-index:10}
+th{padding:12px;text-align:left;font-size:12px;color:#858585;text-transform:uppercase;border-bottom:1px solid #3e3e42;cursor:pointer;user-select:none}
+th:hover{background:#3e3e42}
+th.sortable::after{content:'⇅';margin-left:5px;opacity:.3}
+th.sort-asc::after{content:'↑';opacity:1}
+th.sort-desc::after{content:'↓';opacity:1}
+td{padding:12px;border-bottom:1px solid #3e3e42;font-size:13px}
+tr:hover{background:#2d2d30}
+.status-badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold}
+.status-latest{background:#2d5a3a;color:#4ec9b0}
+.status-outdated{background:#5a4f2d;color:#dcdcaa}
+.status-failed{background:#5a2d2d;color:#f48771}
+.version{font-family:monospace;color:#ce9178}
+.actions{display:flex;gap:8px}
+.btn-sm{background:#3e3e42;color:#d4d4d4;border:none;padding:4px 10px;border-radius:3px;cursor:pointer;font-size:11px;transition:background .2s}
+.btn-sm:hover{background:#4e4e52}
+.empty-state{text-align:center;padding:60px 20px;color:#858585}
+.empty-state h2{color:#d4d4d4;margin-bottom:10px}
+.toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:12px 18px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}
 .toast.show{opacity:1}
+.loading{text-align:center;padding:40px;color:#858585}
+.detail-row{background:#1e1e1e;display:none}
+.detail-row.show{display:table-row}
+.detail-content{padding:20px;font-size:12px;color:#858585}
+.detail-content pre{background:#252526;padding:12px;border-radius:4px;overflow-x:auto;margin-top:10px}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>MQBucket - Scoop 安装命令</h1>
-
-<div class="section">
-<h2 style="color:#569cd6;font-size:16px;margin-bottom:10px">添加 Bucket</h2>
-<div class="cmd">
-<code>scoop bucket add mqbucket https://github.com/maqibg/MQBucket</code>
-<button class="btn" onclick="copy(this)">复制</button>
+<div class="header">
+<h1>MQBucket - Scoop Bucket 状态看板</h1>
+<div class="meta">
+<span id="lastUpdate">加载中...</span>
+<span style="margin:0 10px">|</span>
+<span>数据源: <strong id="dataSource">CI</strong></span>
 </div>
 </div>
 
-<div class="section">
-<h2 style="color:#569cd6;font-size:16px;margin-bottom:10px">安装应用</h2>
-<div class="grid">
-<div class="cmd"><code>scoop install mqbucket/AIO-Hub</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/aio-coding-hub</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Ani</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/CodeSwitch</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/CodeSwitchR</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/ccg-gateway</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/DnsTools</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Game-Cheats-Manager</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Github-Store</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/GithubStarsManager</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/KeymouseGo</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/LGHUB</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Lumina-Note</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/MusicTag</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Nexus_Terminal</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/PicList</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/PixPin</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Pot</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/QuickCut</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/SmartHostsTool</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/SoNovel</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/SteamCommunity-302</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Tai</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Tuboshu</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/Unihub</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/UsbEAm-Hosts-Editor</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/XTerminal</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/bbmusic</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/karing</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/kdeconnect</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/kikoplay</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/pure_live</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/res-downloader</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/sparkle</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/tbtool</code><button class="btn" onclick="copy(this)">复制</button></div>
-<div class="cmd"><code>scoop install mqbucket/tdl</code><button class="btn" onclick="copy(this)">复制</button></div>
+<div class="summary">
+<div class="card latest">
+<div class="label">最新</div>
+<div class="value" id="summaryLatest">-</div>
 </div>
+<div class="card outdated">
+<div class="label">需更新</div>
+<div class="value" id="summaryOutdated">-</div>
+</div>
+<div class="card failed">
+<div class="label">检测失败</div>
+<div class="value" id="summaryFailed">-</div>
+</div>
+<div class="card">
+<div class="label">总计</div>
+<div class="value" id="summaryTotal">-</div>
 </div>
 </div>
 
-<div class="toast" id="toast">已复制到剪贴板</div>
+<div class="toolbar">
+<input type="text" id="searchInput" placeholder="搜索应用名称或描述...">
+<select id="statusFilter">
+<option value="all">全部状态</option>
+<option value="latest">最新</option>
+<option value="outdated">需更新</option>
+<option value="failed">失败</option>
+</select>
+<select id="sortBy">
+<option value="name">按名称</option>
+<option value="status">按状态</option>
+<option value="duration">按耗时</option>
+</select>
+</div>
+
+<div class="table-container">
+<table id="appTable">
+<thead>
+<tr>
+<th class="sortable" data-sort="name">应用名称</th>
+<th class="sortable" data-sort="status">状态</th>
+<th class="sortable" data-sort="bucketVersion">Bucket 版本</th>
+<th class="sortable" data-sort="latestVersion">最新版本</th>
+<th class="sortable" data-sort="duration">耗时</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody id="appTableBody">
+<tr><td colspan="6" class="loading">加载中...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-function copy(btn){
-const code=btn.previousElementSibling.textContent;
-navigator.clipboard.writeText(code).then(()=>{
-const toast=document.getElementById('toast');
-toast.classList.add('show');
-setTimeout(()=>toast.classList.remove('show'),2000);
-});
+let statusData = null;
+let filteredApps = [];
+let currentSort = { key: 'name', order: 'asc' };
+
+async function loadStatus() {
+  try {
+    const response = await fetch('./status.json');
+    if (!response.ok) throw new Error('无法加载 status.json');
+    statusData = await response.json();
+    updateUI();
+  } catch (error) {
+    console.error('加载失败:', error);
+    document.getElementById('appTableBody').innerHTML =
+      '<tr><td colspan="6" class="empty-state"><h2>无法加载数据</h2><p>请确保 status.json 文件存在</p></td></tr>';
+  }
 }
+
+function updateUI() {
+  if (!statusData) return;
+
+  document.getElementById('lastUpdate').textContent =
+    `最后更新: ${new Date(statusData.generatedAt).toLocaleString('zh-CN')}`;
+  document.getElementById('dataSource').textContent =
+    statusData.source === 'ci' ? 'CI (GitHub Actions)' : 'Local';
+
+  document.getElementById('summaryLatest').textContent = statusData.summary.latest;
+  document.getElementById('summaryOutdated').textContent = statusData.summary.outdated;
+  document.getElementById('summaryFailed').textContent = statusData.summary.failed;
+  document.getElementById('summaryTotal').textContent = statusData.summary.total;
+
+  filterAndRender();
+}
+
+function filterAndRender() {
+  if (!statusData) return;
+
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  const statusFilter = document.getElementById('statusFilter').value;
+
+  filteredApps = statusData.apps.filter(app => {
+    const matchSearch = !search ||
+      app.name.toLowerCase().includes(search) ||
+      (app.description && app.description.toLowerCase().includes(search));
+    const matchStatus = statusFilter === 'all' || app.status === statusFilter;
+    return matchSearch && matchStatus;
+  });
+
+  sortApps();
+  renderTable();
+}
+
+function sortApps() {
+  filteredApps.sort((a, b) => {
+    let aVal = a[currentSort.key];
+    let bVal = b[currentSort.key];
+
+    if (currentSort.key === 'duration') {
+      aVal = a.durationMs || 0;
+      bVal = b.durationMs || 0;
+    }
+
+    if (typeof aVal === 'string') {
+      return currentSort.order === 'asc'
+        ? aVal.localeCompare(bVal)
+        : bVal.localeCompare(aVal);
+    }
+    return currentSort.order === 'asc' ? aVal - bVal : bVal - aVal;
+  });
+}
+
+function renderTable() {
+  const tbody = document.getElementById('appTableBody');
+
+  if (filteredApps.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><h2>未找到应用</h2><p>尝试调整搜索或筛选条件</p></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filteredApps.map(app => `
+    <tr data-app="${app.name}">
+      <td><strong>${app.name}</strong><br><small style="color:#858585">${app.description || ''}</small></td>
+      <td><span class="status-badge status-${app.status}">${getStatusText(app.status)}</span></td>
+      <td><span class="version">${app.bucketVersion}</span></td>
+      <td><span class="version">${app.latestVersion}</span></td>
+      <td>${app.durationMs ? (app.durationMs / 1000).toFixed(2) + 's' : '-'}</td>
+      <td class="actions">
+        <button class="btn-sm" onclick="copyInstall('${app.name}')">复制安装</button>
+        <button class="btn-sm" onclick="toggleDetail('${app.name}')">详情</button>
+      </td>
+    </tr>
+    <tr class="detail-row" id="detail-${app.name}">
+      <td colspan="6">
+        <div class="detail-content">
+          <p><strong>Manifest:</strong> ${app.manifestPath}</p>
+          <p><strong>Homepage:</strong> <a href="${app.homepage}" target="_blank" style="color:#4ec9b0">${app.homepage}</a></p>
+          <p><strong>检测时间:</strong> ${new Date(app.checkedAt).toLocaleString('zh-CN')}</p>
+          ${app.message ? `<p><strong>消息:</strong> ${app.message}</p>` : ''}
+          ${app.log.stdout ? `<pre>${app.log.stdout}</pre>` : ''}
+          ${app.log.stderr ? `<pre style="color:#f48771">${app.log.stderr}</pre>` : ''}
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function getStatusText(status) {
+  const map = { latest: '✓ 最新', outdated: '⚠ 需更新', failed: '✗ 失败' };
+  return map[status] || status;
+}
+
+function copyInstall(appName) {
+  const cmd = `scoop install mqbucket/${appName}`;
+  navigator.clipboard.writeText(cmd).then(() => showToast('已复制安装命令'));
+}
+
+function toggleDetail(appName) {
+  const row = document.getElementById(`detail-${appName}`);
+  row.classList.toggle('show');
+}
+
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+document.getElementById('searchInput').addEventListener('input', filterAndRender);
+document.getElementById('statusFilter').addEventListener('change', filterAndRender);
+document.getElementById('sortBy').addEventListener('change', (e) => {
+  currentSort.key = e.target.value;
+  sortApps();
+  renderTable();
+});
+
+document.querySelectorAll('th.sortable').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.sort;
+    if (currentSort.key === key) {
+      currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+    } else {
+      currentSort.key = key;
+      currentSort.order = 'asc';
+    }
+    document.querySelectorAll('th.sortable').forEach(t => {
+      t.classList.remove('sort-asc', 'sort-desc');
+    });
+    th.classList.add(`sort-${currentSort.order}`);
+    sortApps();
+    renderTable();
+  });
+});
+
+loadStatus();
 </script>
 </body>
 </html>
