@@ -1,3 +1,5 @@
+#Requires -Version 7.0
+
 # Generate Bucket Status JSON
 # 用于生成 status.json，供 bucket-index.html 展示版本检测结果
 
