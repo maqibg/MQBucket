@@ -1,10 +1,10 @@
 {
-    "version": "2025.02",
+    "version": "2026.01",
     "description": "图拉丁吧硬件检测工具箱，是开源、免费、绿色、纯净的硬件检测工具合集.",
     "homepage": "http://www.tbtool.cn/",
     "license": "Freeware",
-    "url": "https://alist.sqliuchang.com/p/scoop/%E5%9B%BE%E5%90%A7%E5%B7%A5%E5%85%B7%E7%AE%B1202502%E7%BB%BF%E8%89%B2%E6%AD%A3%E5%BC%8F%E7%89%88.rar",
-    "hash": "E8490DBC7B1CBACF1754C8577CE7CAC94DCAF811D89FB323B6570BDDEC623129",
+    "url": "https://alist.sqliuchang.com/d/scoop/%E5%9B%BE%E5%90%A7%E5%B7%A5%E5%85%B7%E7%AE%B1202601%E7%BB%BF%E8%89%B2%E7%89%88.zip",
+    "hash": "6369CD7E0D525779CFAE96B24E3DB280DAF4DE90B415672C5EDA2A0BA63AD506",
     "pre_install": [
         "# Create initial config files",
         "if (!(Test-Path -Path \"$dir\\config.ini\")) {",
@@ -19,14 +19,14 @@
     ],
     "bin": [
         [
-            "图吧工具箱2025.exe",
+            "图吧工具箱2026.exe",
             "tbtool"
         ]
     ],
     "shortcuts": [
         [
-            "图吧工具箱2025.exe",
-            "图吧工具箱2025"
+            "图吧工具箱2026.exe",
+            "图吧工具箱2026"
         ]
     ],
     "persist": [
