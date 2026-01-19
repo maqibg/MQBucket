@@ -57,7 +57,9 @@
     ],
     "persist": "data",
     "checkver": {
-        "github": "https://github.com/miaotouy/aio-hub"
+        "url": "https://api.github.com/repos/miaotouy/aio-hub/releases/latest",
+        "jsonpath": "$.tag_name",
+        "regex": "v([\\d.]+-(?:beta|alpha|dev)\\.\\d+)"
     },
     "autoupdate": {
         "architecture": {
