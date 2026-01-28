@@ -1,5 +1,5 @@
 {
-    "version": "3.2.2",
+    "version": "3.3.0",
     "description": "PicList - 高效的云存储和图床平台管理工具，基于 PicGo 深度二次开发",
     "homepage": "https://piclist.cn",
     "license": "MIT",
@@ -9,18 +9,10 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Kuingsmile/PicList/releases/download/v3.2.2/PicList-Setup-3.2.2-x64.exe#/dl.7z",
-            "hash": "5048743289b3f718ad896a152ec03bba228eb86e2a08c09d98c011bcd36c940f"
-        },
-        "32bit": {
-            "url": "https://github.com/Kuingsmile/PicList/releases/download/v3.2.2/PicList-Setup-3.2.2.exe#/dl.7z",
-            "hash": "3877fc8d0c2b42da15754e00afc2108acaef1598b94cb5810c846859382f92cc"
+            "url": "https://github.com/Kuingsmile/PicList/releases/download/v3.3.0/PicList-Setup-3.3.0-x64-portable.7z",
+            "hash": "d88a25db03a1c3d5df6dc9f6d1f0192cbabb9df0a1b611a056756ab49b9a0af5"
         }
     },
-    "pre_install": [
-        "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\" -Removal",
-        "Remove-Item \"$dir\\`$*\" -Force -Recurse -ErrorAction SilentlyContinue"
-    ],
     "post_install": [
         "$source = Join-Path $env:APPDATA 'piclist'",
         "$target = Join-Path $persist_dir 'data'",
@@ -53,10 +45,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/Kuingsmile/PicList/releases/download/v$version/PicList-Setup-$version-x64.exe#/dl.7z"
-            },
-            "32bit": {
-                "url": "https://github.com/Kuingsmile/PicList/releases/download/v$version/PicList-Setup-$version-ia32.exe#/dl.7z"
+                "url": "https://github.com/Kuingsmile/PicList/releases/download/v$version/PicList-Setup-$version-x64-portable.7z"
             }
         }
     }
