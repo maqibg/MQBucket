@@ -8,7 +8,7 @@
     "hash": "255e663a0d45ac2b6b9c018e207afd9cd6b47c702180eebe3fcdb4a006b2bd57",
     "pre_install": [
         "$installer = Get-ChildItem \"$dir\\*.exe\" | Select-Object -First 1",
-        "Invoke-ExternalCommand innounp -ArgumentList @('-x', '-d\"' + $dir + '\"', $installer.FullName) | Out-Null",
+        "Invoke-ExternalCommand innounp -ArgumentList @('-x', '-b', '-y', \"-d$dir\", $installer.FullName) | Out-Null",
         "Remove-Item $installer.FullName -Force",
         "Get-ChildItem \"$dir\\{app}\\*\" | Move-Item -Destination $dir -Force",
         "Remove-Item \"$dir\\{app}\" -Force -Recurse -ErrorAction SilentlyContinue",
