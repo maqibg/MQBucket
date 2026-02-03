@@ -13,10 +13,7 @@
             "hash": "a55935f692c4a849c9e14888c161d37409a2f08adae1acddbabf61303ca83140"
         }
     },
-    "pre_install": [
-        "Expand-7zipArchive \"$dir\\`$PLUGINSDIR\\app-64.7z\" \"$dir\" -Removal",
-        "Remove-Item \"$dir\\`$*\" -Force -Recurse -ErrorAction SilentlyContinue"
-    ],
+    "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\Uninstall*\" -Force -Recurse -ErrorAction SilentlyContinue",
     "shortcuts": [
         [
             "devtool-manager.exe",
