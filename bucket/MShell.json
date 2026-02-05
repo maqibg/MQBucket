@@ -6,7 +6,8 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/inspoaibox/Mshell/releases/download/MShell.Setup.0.2.0/win-unpacked.zip",
-            "hash": "c390a78aa597cf8bb4ffd6d589313046c4e7adbaebbf5196feda355f4ea73ae9"
+            "hash": "c390a78aa597cf8bb4ffd6d589313046c4e7adbaebbf5196feda355f4ea73ae9",
+            "extract_dir": "win-unpacked"
         }
     },
     "shortcuts": [
@@ -41,7 +42,8 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/inspoaibox/Mshell/releases/download/MShell.Setup.$version/win-unpacked.zip"
+                "url": "https://github.com/inspoaibox/Mshell/releases/download/MShell.Setup.$version/win-unpacked.zip",
+                "extract_dir": "win-unpacked"
             }
         }
     }
