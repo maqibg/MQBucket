@@ -3,13 +3,9 @@
     "description": "A lightweight Windows launcher built with Tauri + Vue 3 + SQLite",
     "homepage": "https://github.com/maqibg/my-quickstart",
     "license": "Unknown",
-    "architecture": {
-        "64bit": {
-            "url": "https://github.com/maqibg/my-quickstart/releases/download/v0.1.3/my-quickstart_0.1.0_x64-setup.exe#/dl.7z",
-            "hash": "1cebeaea3ac206f2da52b80beffd78a84fc8e57ea2580296dad8c20af460f1d5"
-        }
-    },
-    "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
+    "url": "https://github.com/maqibg/my-quickstart/releases/download/v0.1.3/my-quickstart.exe#/dl.exe",
+    "hash": "c83f8e84f8d3cf123d5df72b7b9751b57bfd877d702d3ef973ec7b778d581f4a",
+    "pre_install": "Rename-Item \"$dir\\dl.exe\" 'my-quickstart.exe'",
     "bin": "my-quickstart.exe",
     "shortcuts": [
         [
@@ -22,10 +18,6 @@
         "github": "https://github.com/maqibg/my-quickstart"
     },
     "autoupdate": {
-        "architecture": {
-            "64bit": {
-                "url": "https://github.com/maqibg/my-quickstart/releases/download/v$version/my-quickstart_0.1.0_x64-setup.exe#/dl.7z"
-            }
-        }
+        "url": "https://github.com/maqibg/my-quickstart/releases/download/v$version/my-quickstart.exe#/dl.exe"
     }
 }
