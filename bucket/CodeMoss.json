@@ -16,10 +16,10 @@
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
-    "bin": "CodeMoss.exe",
+    "bin": "code-moss.exe",
     "shortcuts": [
         [
-            "CodeMoss.exe",
+            "code-moss.exe",
             "CodeMoss"
         ]
     ],
