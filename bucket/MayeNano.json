@@ -8,7 +8,7 @@
         "用户数据存储在安装目录内：",
         "  - MDB.json : 应用配置数据库（首次运行时生成）",
         "  - cache/ : 缓存目录",
-        "仅 cache 目录会被 Scoop persist 管理，MDB.json 需手动备份"
+        "这些文件和目录会被 Scoop persist 自动管理"
     ],
     "architecture": {
         "64bit": {
@@ -23,6 +23,16 @@
             "Maye Nano.exe",
             "Maye Nano"
         ]
+    ],
+    "post_install": [
+        "$mdbFile = Join-Path $dir 'MDB.json'",
+        "$mdbTarget = Join-Path $persist_dir 'MDB.json'",
+        "",
+        "if (Test-Path $mdbFile) {",
+        "    Move-Item -LiteralPath $mdbFile -Destination $mdbTarget -Force",
+        "}",
+        "",
+        "New-Item -Path $mdbFile -ItemType SymbolicLink -Value $mdbTarget -Force | Out-Null"
     ],
     "persist": "cache",
     "checkver": {
