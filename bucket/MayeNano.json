@@ -6,9 +6,9 @@
     "notes": [
         "MayeNano 是一款轻量级、高度可定制的 Windows 快速启动器",
         "用户数据存储在安装目录内：",
-        "  - MDB.json : 应用配置数据库",
+        "  - MDB.json : 应用配置数据库（首次运行时生成）",
         "  - cache/ : 缓存目录",
-        "这些文件和目录会被 Scoop persist 自动管理"
+        "仅 cache 目录会被 Scoop persist 管理，MDB.json 需手动备份"
     ],
     "architecture": {
         "64bit": {
@@ -24,10 +24,7 @@
             "Maye Nano"
         ]
     ],
-    "persist": [
-        "MDB.json",
-        "cache"
-    ],
+    "persist": "cache",
     "checkver": {
         "github": "https://github.com/25H/MayeNano"
     },
