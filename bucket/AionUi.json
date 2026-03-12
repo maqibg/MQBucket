@@ -1,5 +1,5 @@
 {
-    "version": "1.8.25",
+    "version": "1.8.26",
     "description": "AionUi - Free, local, open-source Cowork for Gemini CLI, Claude Code, Codex, and more",
     "homepage": "https://github.com/iOfficeAI/AionUi",
     "license": "Apache-2.0",
@@ -10,8 +10,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/iOfficeAI/AionUi/releases/download/v1.8.25/AionUi-1.8.25-win-x64.exe#/dl.7z",
-            "hash": "5b2d0929e767757c00c7c477d952fb6a6f63ccdd57d06bc3262030a37bff1397"
+            "url": "https://github.com/iOfficeAI/AionUi/releases/download/v1.8.26/AionUi-1.8.26-win-x64.exe#/dl.7z",
+            "hash": "00536b93eafc14b66ec04ff69674e19a0edb6e47012c4249ae80f01c43663094"
         }
     },
     "pre_install": [
