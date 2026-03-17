@@ -22,10 +22,7 @@
         ]
     ],
     "persist": "data",
-    "checkver": {
-        "github": "https://github.com/maqibg/nexus-terminal-rust",
-        "regex": "([\\d.]+)"
-    },
+    "checkver": "github",
     "autoupdate": {
         "url": "https://github.com/maqibg/nexus-terminal-rust/releases/download/$version/nexus-terminal.exe"
     }
