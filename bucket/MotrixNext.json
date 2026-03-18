@@ -1,5 +1,5 @@
 {
-    "version": "3.4.5-beta.2",
+    "version": "3.4.4",
     "description": "A modern download manager powered by aria2, built with Vue 3 and Tauri",
     "homepage": "https://github.com/AnInsomniacy/motrix-next",
     "license": "MIT",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.4.5-beta.2/MotrixNext_3.4.5-beta.2_x64-setup.exe#/dl.7z",
-            "hash": "d512864e230f96d4c421f79ddf6bffb62af7e931ccfd7815163878e89bf6e381"
+            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.4.4/MotrixNext_3.4.4_x64-setup.exe#/dl.7z",
+            "hash": "9a496a9b8c2eaf9a3cce792ce83979dbe07b90308241e41e3c52886aafd0fd32"
         }
     },
     "pre_install": [
