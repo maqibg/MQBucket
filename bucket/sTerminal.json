@@ -1,10 +1,10 @@
 {
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Modern terminal emulator with split panes and layout management",
     "homepage": "https://github.com/maqibg/sTerminal",
     "license": "MIT",
-    "url": "https://github.com/maqibg/sTerminal/releases/download/v0.1.2/sTerminal.exe",
-    "hash": "94d85628533d9d92578e4253a696e07b366b8bc524ce960f3dd51e0692d6c884",
+    "url": "https://github.com/maqibg/sTerminal/releases/download/v0.1.3/sTerminal.exe",
+    "hash": "ae7ce5309a8594fe9a2463a16b39c8db0f61e4ad3912374785bf097caeb7d863",
     "bin": "sTerminal.exe",
     "shortcuts": [
         [
