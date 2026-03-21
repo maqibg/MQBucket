@@ -164,10 +164,10 @@ function Test-AppVersion {
         if ($checkverOutput -match "^$appName`: (.+)$") {
             $versionInfo = $matches[1]
 
-            if ($versionInfo -match "^([\d\.\-\w]+)$") {
+            if ($versionInfo -match "^([\d\.\-\+\w]+)$") {
                 $latestVersion = $matches[1]
                 $status = "latest"
-            } elseif ($versionInfo -match "^([\d\.\-\w]+) \(scoop version is ([\d\.\-\w]+)\)") {
+            } elseif ($versionInfo -match "^([\d\.\-\+\w]+) \(scoop version is ([\d\.\-\+\w]+)\)") {
                 $latestVersion = $matches[1]
                 $status = "outdated"
                 $message = "新版本可用: $latestVersion (当前: $bucketVersion)"
