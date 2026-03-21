@@ -7,57 +7,26 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Consolas,Monaco,monospace;background:#1e1e1e;color:#d4d4d4;line-height:1.6;font-size:16px}
-.container{max-width:1400px;margin:0 auto;padding:20px}
-.header{margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
-.header-left h1{color:#4ec9b0;font-size:36px;margin-bottom:8px}
-.header-left .meta{color:#858585;font-size:15px}
-.btn-github{background:#238636;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block;transition:background .2s}
-.btn-github:hover{background:#2ea043}
+.container{max-width:1400px;margin:0 auto;padding:20px}.header{margin-bottom:30px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px}
+.header-left h1{color:#4ec9b0;font-size:36px;margin-bottom:8px}.header-left .meta{color:#858585;font-size:15px}
+.btn-github{background:#238636;color:#fff;border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-size:14px;text-decoration:none;display:inline-block;transition:background .2s}.btn-github:hover{background:#2ea043}
 .summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-bottom:25px}
-.card{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:20px;text-align:center}
-.card .label{color:#858585;font-size:14px;text-transform:uppercase;margin-bottom:8px}
-.card .value{font-size:40px;font-weight:bold}
-.card.latest .value{color:#4ec9b0}
-.card.outdated .value{color:#dcdcaa}
-.card.failed .value{color:#f48771}
+.card{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:20px;text-align:center}.card .label{color:#858585;font-size:14px;text-transform:uppercase;margin-bottom:8px}.card .value{font-size:40px;font-weight:bold}
+.card.latest .value{color:#4ec9b0}.card.outdated .value{color:#dcdcaa}.card.failed .value{color:#f48771}
 .toolbar{background:#252526;border:1px solid #3e3e42;border-radius:6px;padding:15px;margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.toolbar input{background:#1e1e1e;border:1px solid #3e3e42;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:13px;flex:1;min-width:200px}
-.toolbar select{background:#1e1e1e;border:1px solid #3e3e42;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:13px}
-.toolbar button{background:#0e639c;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;transition:background .2s}
-.toolbar button:hover{background:#1177bb}
-.table-container{background:#252526;border:1px solid #3e3e42;border-radius:6px;overflow:hidden}
-table{width:100%;border-collapse:collapse}
-thead{background:#2d2d30;position:sticky;top:0;z-index:10}
-th{padding:12px;text-align:left;font-size:14px;color:#858585;text-transform:uppercase;border-bottom:1px solid #3e3e42;cursor:pointer;user-select:none}
-th:hover{background:#3e3e42}
-th.sortable::after{content:'⇅';margin-left:5px;opacity:.3}
-th.sort-asc::after{content:'↑';opacity:1}
-th.sort-desc::after{content:'↓';opacity:1}
-td{padding:12px;border-bottom:1px solid #3e3e42;font-size:15px}
-tr:hover{background:#2d2d30}
-.status-badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold}
-.status-latest{background:#2d5a3a;color:#4ec9b0}
-.status-outdated{background:#5a4f2d;color:#dcdcaa}
-.status-failed{background:#5a2d2d;color:#f48771}
-.version{font-family:monospace;color:#ce9178}
-.actions{display:flex;gap:8px}
-.btn-sm{background:#3e3e42;color:#d4d4d4;border:none;padding:4px 10px;border-radius:3px;cursor:pointer;font-size:11px;transition:background .2s}
-.btn-sm:hover{background:#4e4e52}
-.empty-state{text-align:center;padding:60px 20px;color:#858585}
-.empty-state h2{color:#d4d4d4;margin-bottom:10px}
-.toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:12px 18px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}
-.toast.show{opacity:1}
-.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:2000}
-.modal.show{display:flex}
-.modal-content{background:#252526;border:1px solid #3e3e42;border-radius:8px;padding:30px;max-width:600px;width:90%}
-.modal-content h2{color:#4ec9b0;margin-bottom:15px;font-size:20px}
-.modal-content pre{background:#1e1e1e;padding:15px;border-radius:4px;overflow-x:auto;margin:15px 0;font-size:13px;color:#ce9178}
-.modal-content button{margin-top:15px}
-.loading{text-align:center;padding:40px;color:#858585}
-.detail-row{background:#1e1e1e;display:none}
-.detail-row.show{display:table-row}
-.detail-content{padding:20px;font-size:12px;color:#858585}
-.detail-content pre{background:#252526;padding:12px;border-radius:4px;overflow-x:auto;margin-top:10px}
+.toolbar input,.toolbar select{background:#1e1e1e;border:1px solid #3e3e42;color:#d4d4d4;padding:8px 12px;border-radius:4px;font-size:13px}.toolbar input{flex:1;min-width:200px}
+.toolbar button{background:#0e639c;color:#fff;border:none;padding:8px 16px;border-radius:4px;cursor:pointer;font-size:13px;transition:background .2s}.toolbar button:hover{background:#1177bb}
+.table-container{background:#252526;border:1px solid #3e3e42;border-radius:6px;overflow:hidden}table{width:100%;border-collapse:collapse}
+thead{background:#2d2d30;position:sticky;top:0;z-index:10}th{padding:12px;text-align:left;font-size:14px;color:#858585;text-transform:uppercase;border-bottom:1px solid #3e3e42;cursor:pointer;user-select:none}
+th:hover{background:#3e3e42}.sortable::after{content:'⇅';margin-left:5px;opacity:.3}.sort-asc::after{content:'↑';opacity:1}.sort-desc::after{content:'↓';opacity:1}
+td{padding:12px;border-bottom:1px solid #3e3e42;font-size:15px}tr:hover{background:#2d2d30}
+.status-badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:bold}.status-latest{background:#2d5a3a;color:#4ec9b0}.status-outdated{background:#5a4f2d;color:#dcdcaa}.status-failed{background:#5a2d2d;color:#f48771}.status-missing{background:#24324d;color:#9cdcfe}
+.version{font-family:monospace;color:#ce9178}.actions{display:flex;gap:8px}.btn-sm{background:#3e3e42;color:#d4d4d4;border:none;padding:4px 10px;border-radius:3px;cursor:pointer;font-size:11px;transition:background .2s}.btn-sm:hover{background:#4e4e52}
+.empty-state{text-align:center;padding:60px 20px;color:#858585}.empty-state h2{color:#d4d4d4;margin-bottom:10px}.loading{text-align:center;padding:40px;color:#858585}
+.toast{position:fixed;top:20px;right:20px;background:#4ec9b0;color:#1e1e1e;padding:12px 18px;border-radius:6px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none;z-index:1000}.toast.show{opacity:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:2000}.modal.show{display:flex}
+.modal-content{background:#252526;border:1px solid #3e3e42;border-radius:8px;padding:30px;max-width:600px;width:90%}.modal-content h2{color:#4ec9b0;margin-bottom:15px;font-size:20px}.modal-content pre{background:#1e1e1e;padding:15px;border-radius:4px;overflow-x:auto;margin:15px 0;font-size:13px;color:#ce9178}
+.detail-row{background:#1e1e1e;display:none}.detail-row.show{display:table-row}.detail-content{padding:20px;font-size:12px;color:#858585}.detail-content pre{background:#252526;padding:12px;border-radius:4px;overflow-x:auto;margin-top:10px}
 </style>
 </head>
 <body>
@@ -65,270 +34,198 @@ tr:hover{background:#2d2d30}
 <div class="header">
 <div class="header-left">
 <h1>MQBucket - Scoop Bucket 状态看板</h1>
-<div class="meta">
-<span id="lastUpdate">加载中...</span>
-<span style="margin:0 10px">|</span>
-<span>数据源: <strong id="dataSource">CI</strong></span>
+<div class="meta"><span id="lastUpdate">加载中...</span><span style="margin:0 10px">|</span><span>数据源: <strong id="dataSource">CI</strong></span></div>
 </div>
+<a href="https://github.com/maqibg/MQBucket" target="_blank" class="btn-github">访问 Bucket 主页</a>
 </div>
-<a href="https://github.com/maqibg/MQBucket" target="_blank" class="btn-github">🏠 访问 Bucket 主页</a>
-</div>
-
 <div class="summary">
-<div class="card latest">
-<div class="label">最新</div>
-<div class="value" id="summaryLatest">-</div>
+<div class="card latest"><div class="label">最新</div><div class="value" id="summaryLatest">-</div></div>
+<div class="card outdated"><div class="label">需更新</div><div class="value" id="summaryOutdated">-</div></div>
+<div class="card failed"><div class="label">检测失败</div><div class="value" id="summaryFailed">-</div></div>
+<div class="card"><div class="label">总计</div><div class="value" id="summaryTotal">-</div></div>
 </div>
-<div class="card outdated">
-<div class="label">需更新</div>
-<div class="value" id="summaryOutdated">-</div>
-</div>
-<div class="card failed">
-<div class="label">检测失败</div>
-<div class="value" id="summaryFailed">-</div>
-</div>
-<div class="card">
-<div class="label">总计</div>
-<div class="value" id="summaryTotal">-</div>
-</div>
-</div>
-
 <div class="toolbar">
 <input type="text" id="searchInput" placeholder="搜索应用名称或描述...">
-<select id="statusFilter">
-<option value="all">全部状态</option>
-<option value="latest">最新</option>
-<option value="outdated">需更新</option>
-<option value="failed">失败</option>
-</select>
-<select id="sortBy">
-<option value="name">按名称</option>
-<option value="status">按状态</option>
-<option value="duration">按耗时</option>
-</select>
-<button onclick="reloadData()">🔄 重新加载数据</button>
-<button onclick="showCheckHelp()">🔍 手动检测版本</button>
+<select id="statusFilter"><option value="all">全部状态</option><option value="latest">最新</option><option value="outdated">需更新</option><option value="failed">失败</option><option value="missing">未检测</option></select>
+<select id="sortBy"><option value="name">按名称</option><option value="status">按状态</option><option value="duration">按耗时</option></select>
+<button onclick="reloadData()">重新加载数据</button>
+<button onclick="showCheckHelp()">手动检测版本</button>
 </div>
-
 <div class="table-container">
 <table id="appTable">
-<thead>
-<tr>
-<th class="sortable" data-sort="name">应用名称</th>
-<th class="sortable" data-sort="status">状态</th>
-<th class="sortable" data-sort="bucketVersion">Bucket 版本</th>
-<th class="sortable" data-sort="latestVersion">最新版本</th>
-<th class="sortable" data-sort="duration">耗时</th>
-<th>操作</th>
-</tr>
-</thead>
-<tbody id="appTableBody">
-<tr><td colspan="6" class="loading">加载中...</td></tr>
-</tbody>
+<thead><tr><th class="sortable" data-sort="name">应用名称</th><th class="sortable" data-sort="status">状态</th><th class="sortable" data-sort="bucketVersion">Bucket 版本</th><th class="sortable" data-sort="latestVersion">最新版本</th><th class="sortable" data-sort="duration">耗时</th><th>操作</th></tr></thead>
+<tbody id="appTableBody"><tr><td colspan="6" class="loading">加载中...</td></tr></tbody>
 </table>
 </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <div class="modal" id="checkModal">
 <div class="modal-content">
-<h2>🔍 手动检测版本</h2>
+<h2>手动检测版本</h2>
 <p>要手动检测所有应用的最新版本，请在终端运行以下命令：</p>
 <pre>pwsh -File scripts/generate-status.ps1 -Token "your_token"</pre>
-<p style="margin-top:15px;color:#858585;font-size:13px">
-检测完成后，点击"重新加载数据"按钮刷新页面。<br>
-注意：检测 36 个应用约需 72 秒（每个应用间隔 2 秒）。<br>
-<strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong>
-</p>
+<p style="margin-top:15px;color:#858585;font-size:13px">检测完成后，点击“重新加载数据”按钮刷新页面。<br>检测耗时取决于当前 bucket 数量与上游接口响应速度。<br><strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong></p>
 <button class="btn-sm" onclick="closeModal()">关闭</button>
 </div>
 </div>
-
 <script>
-let statusData = null;
-let filteredApps = [];
-let currentSort = { key: 'name', order: 'asc' };
+let statusData=null;
+let filteredApps=[];
+let currentSort={key:'name',order:'asc'};
+const DEFAULT_REPO={owner:'maqibg',name:'MQBucket',ref:'main'};
+const EMPTY_STATUS=()=>({generatedAt:new Date().toISOString(),source:'local',repo:{...DEFAULT_REPO},summary:{total:0,latest:0,outdated:0,failed:0},apps:[]});
 
 async function loadStatus() {
+  let rawStatus=EMPTY_STATUS(),fallbackUsed=false;
   try {
-    const response = await fetch('./status.json');
-    if (!response.ok) throw new Error('无法加载 status.json');
-    statusData = await response.json();
-    updateUI();
+    const response=await fetch('./status.json',{cache:'no-store'});
+    if(!response.ok) throw new Error('无法加载 status.json');
+    rawStatus=await response.json();
   } catch (error) {
-    console.error('加载失败:', error);
-    document.getElementById('appTableBody').innerHTML =
-      '<tr><td colspan="6" class="empty-state"><h2>无法加载数据</h2><p>请确保 status.json 文件存在</p></td></tr>';
+    fallbackUsed=true;
+    console.error('加载失败:',error);
+  }
+  try {
+    statusData=await hydrateStatus(rawStatus);
+    updateUI();
+    if(fallbackUsed) showToast('status.json 加载失败，已回退到仓库清单');
+  } catch (error) {
+    console.error('同步 bucket 失败:',error);
+    document.getElementById('appTableBody').innerHTML='<tr><td colspan="6" class="empty-state"><h2>无法加载数据</h2><p>请确保 status.json 或 GitHub bucket 清单可访问</p></td></tr>';
   }
 }
 
+async function hydrateStatus(rawStatus) {
+  const status={...EMPTY_STATUS(),...rawStatus,repo:{...DEFAULT_REPO,...(rawStatus.repo||{})},summary:{total:0,latest:0,outdated:0,failed:0,...(rawStatus.summary||{})},apps:Array.isArray(rawStatus.apps)?rawStatus.apps:[]};
+  const manifests=await fetchBucketManifestList(status.repo);
+  status.apps=await mergeAppsWithManifests(status.apps,manifests);
+  status.summary=buildSummary(status.apps);
+  status.syncInfo={manifestTotal:manifests.length,missingCount:status.apps.filter(app=>app.status==='missing').length};
+  return status;
+}
+
+async function fetchBucketManifestList(repo) {
+  const refs=[...new Set([repo.ref,DEFAULT_REPO.ref,'master'].filter(Boolean))];
+  let lastError=new Error('无法获取 bucket 清单');
+  for (const ref of refs) {
+    try {
+      const response=await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/contents/bucket?ref=${encodeURIComponent(ref)}`,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
+      if(!response.ok) throw new Error(`GitHub API ${response.status}`);
+      const items=await response.json();
+      return items.filter(item=>item.type==='file'&&item.name.endsWith('.json')&&item.name!=='app-name.json.template').map(item=>({name:item.name.replace(/\.json$/i,''),manifestPath:`bucket/${item.name}`,downloadUrl:item.download_url}));
+    } catch (error) {
+      lastError=error;
+    }
+  }
+  throw lastError;
+}
+
+async function mergeAppsWithManifests(existingApps,manifestList) {
+  const existingMap=new Map(existingApps.map(app=>[app.name,app]));
+  const missingManifests=manifestList.filter(manifest=>!existingMap.has(manifest.name));
+  const fetchedMissing=await Promise.all(missingManifests.map(fetchMissingManifestApp));
+  const missingMap=new Map(fetchedMissing.map(app=>[app.name,app]));
+  return manifestList.map(manifest=>existingMap.get(manifest.name)?{...existingMap.get(manifest.name),manifestPath:existingMap.get(manifest.name).manifestPath||manifest.manifestPath}:missingMap.get(manifest.name)||createMissingApp(manifest.name,manifest.manifestPath));
+}
+
+async function fetchMissingManifestApp(manifest) {
+  try {
+    const response=await fetch(manifest.downloadUrl,{cache:'no-store'});
+    if(!response.ok) throw new Error(`Manifest ${response.status}`);
+    const data=await response.json();
+    return {name:manifest.name,manifestPath:manifest.manifestPath,homepage:data.homepage||'',description:data.description||'',bucketVersion:data.version||'-',latestVersion:data.version||'-',status:'missing',checkedAt:null,durationMs:null,message:'该应用已存在于仓库 bucket 中，但当前 status.json 尚未包含它。',log:{stdout:null,stderr:null}};
+  } catch (error) {
+    return createMissingApp(manifest.name,manifest.manifestPath,`读取 manifest 失败: ${error.message}`);
+  }
+}
+
+function createMissingApp(name,manifestPath,message='该应用已存在于仓库 bucket 中，但当前 status.json 尚未包含它。') {
+  return {name,manifestPath,homepage:'',description:'',bucketVersion:'-',latestVersion:'-',status:'missing',checkedAt:null,durationMs:null,message,log:{stdout:null,stderr:null}};
+}
+
+function buildSummary(apps) {
+  return apps.reduce((summary,app)=>{summary.total++;if(app.status==='latest')summary.latest++;if(app.status==='outdated')summary.outdated++;if(app.status==='failed')summary.failed++;return summary;},{total:0,latest:0,outdated:0,failed:0});
+}
+
+function formatDateTime(value) { return value?new Date(value).toLocaleString('zh-CN'):'-'; }
+function getStatusText(status) { return {latest:'✓ 最新',outdated:'⚠ 需更新',failed:'✗ 失败',missing:'○ 未检测'}[status]||status; }
+function buildHomepage(app) { return app.homepage?`<a href="${app.homepage}" target="_blank" style="color:#4ec9b0">${app.homepage}</a>`:'-'; }
+
 function updateUI() {
-  if (!statusData) return;
-
-  document.getElementById('lastUpdate').textContent =
-    `最后更新: ${new Date(statusData.generatedAt).toLocaleString('zh-CN')}`;
-  document.getElementById('dataSource').textContent =
-    statusData.source === 'ci' ? 'CI (GitHub Actions)' : 'Local';
-
-  document.getElementById('summaryLatest').textContent = statusData.summary.latest;
-  document.getElementById('summaryOutdated').textContent = statusData.summary.outdated;
-  document.getElementById('summaryFailed').textContent = statusData.summary.failed;
-  document.getElementById('summaryTotal').textContent = statusData.summary.total;
-
+  if(!statusData) return;
+  document.getElementById('lastUpdate').textContent=`最后更新: ${formatDateTime(statusData.generatedAt)} | Bucket: ${statusData.syncInfo.manifestTotal} | 未检测: ${statusData.syncInfo.missingCount}`;
+  document.getElementById('dataSource').textContent=`${statusData.source==='ci'?'CI (GitHub Actions)':'Local'} + GitHub Bucket Sync`;
+  document.getElementById('summaryLatest').textContent=statusData.summary.latest;
+  document.getElementById('summaryOutdated').textContent=statusData.summary.outdated;
+  document.getElementById('summaryFailed').textContent=statusData.summary.failed;
+  document.getElementById('summaryTotal').textContent=statusData.summary.total;
   filterAndRender();
 }
 
 function filterAndRender() {
-  if (!statusData) return;
-
-  const search = document.getElementById('searchInput').value.toLowerCase();
-  const statusFilter = document.getElementById('statusFilter').value;
-
-  filteredApps = statusData.apps.filter(app => {
-    const matchSearch = !search ||
-      app.name.toLowerCase().includes(search) ||
-      (app.description && app.description.toLowerCase().includes(search));
-    const matchStatus = statusFilter === 'all' || app.status === statusFilter;
-    return matchSearch && matchStatus;
-  });
-
+  if(!statusData) return;
+  const search=document.getElementById('searchInput').value.toLowerCase();
+  const statusFilter=document.getElementById('statusFilter').value;
+  filteredApps=statusData.apps.filter(app=>((!search)||app.name.toLowerCase().includes(search)||(app.description&&app.description.toLowerCase().includes(search)))&&(statusFilter==='all'||app.status===statusFilter));
   sortApps();
   renderTable();
 }
 
 function sortApps() {
-  filteredApps.sort((a, b) => {
-    let aVal = a[currentSort.key];
-    let bVal = b[currentSort.key];
-
-    if (currentSort.key === 'duration') {
-      aVal = a.durationMs || 0;
-      bVal = b.durationMs || 0;
-    }
-
-    if (typeof aVal === 'string') {
-      return currentSort.order === 'asc'
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal);
-    }
-    return currentSort.order === 'asc' ? aVal - bVal : bVal - aVal;
+  filteredApps.sort((a,b)=>{
+    const aVal=currentSort.key==='duration'?(a.durationMs||0):a[currentSort.key];
+    const bVal=currentSort.key==='duration'?(b.durationMs||0):b[currentSort.key];
+    if(typeof aVal==='string') return currentSort.order==='asc'?aVal.localeCompare(bVal):bVal.localeCompare(aVal);
+    return currentSort.order==='asc'?aVal-bVal:bVal-aVal;
   });
 }
 
 function renderTable() {
-  const tbody = document.getElementById('appTableBody');
-
-  if (filteredApps.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><h2>未找到应用</h2><p>尝试调整搜索或筛选条件</p></td></tr>';
+  const tbody=document.getElementById('appTableBody');
+  if(!filteredApps.length) {
+    tbody.innerHTML='<tr><td colspan="6" class="empty-state"><h2>未找到应用</h2><p>尝试调整搜索或筛选条件</p></td></tr>';
     return;
   }
-
-  tbody.innerHTML = filteredApps.map(app => `
-    <tr data-app="${app.name}">
-      <td><strong>${app.name}</strong><br><small style="color:#858585">${app.description || ''}</small></td>
-      <td><span class="status-badge status-${app.status}">${getStatusText(app.status)}</span></td>
-      <td><span class="version">${app.bucketVersion}</span></td>
-      <td><span class="version">${app.latestVersion}</span></td>
-      <td>${app.durationMs ? (app.durationMs / 1000).toFixed(2) + 's' : '-'}</td>
-      <td class="actions">
-        <button class="btn-sm" onclick="copyInstall('${app.name}')">复制安装</button>
-        <button class="btn-sm" onclick="showCheckApp('${app.name}')">检测</button>
-        <button class="btn-sm" onclick="toggleDetail('${app.name}')">详情</button>
-      </td>
-    </tr>
-    <tr class="detail-row" id="detail-${app.name}">
-      <td colspan="6">
-        <div class="detail-content">
-          <p><strong>Manifest:</strong> ${app.manifestPath}</p>
-          <p><strong>Homepage:</strong> <a href="${app.homepage}" target="_blank" style="color:#4ec9b0">${app.homepage}</a></p>
-          <p><strong>检测时间:</strong> ${new Date(app.checkedAt).toLocaleString('zh-CN')}</p>
-          ${app.message ? `<p><strong>消息:</strong> ${app.message}</p>` : ''}
-          ${app.log.stdout ? `<pre>${app.log.stdout}</pre>` : ''}
-          ${app.log.stderr ? `<pre style="color:#f48771">${app.log.stderr}</pre>` : ''}
-        </div>
-      </td>
-    </tr>
-  `).join('');
-}
-
-function getStatusText(status) {
-  const map = { latest: '✓ 最新', outdated: '⚠ 需更新', failed: '✗ 失败' };
-  return map[status] || status;
+  tbody.innerHTML=filteredApps.map(app=>`<tr data-app="${app.name}"><td><strong>${app.name}</strong><br><small style="color:#858585">${app.description||''}</small></td><td><span class="status-badge status-${app.status}">${getStatusText(app.status)}</span></td><td><span class="version">${app.bucketVersion}</span></td><td><span class="version">${app.latestVersion}</span></td><td>${app.durationMs?(app.durationMs/1000).toFixed(2)+'s':'-'}</td><td class="actions"><button class="btn-sm" onclick="copyInstall('${app.name}')">复制安装</button><button class="btn-sm" onclick="showCheckApp('${app.name}')">检测</button><button class="btn-sm" onclick="toggleDetail('${app.name}')">详情</button></td></tr><tr class="detail-row" id="detail-${app.name}"><td colspan="6"><div class="detail-content"><p><strong>Manifest:</strong> ${app.manifestPath}</p><p><strong>Homepage:</strong> ${buildHomepage(app)}</p><p><strong>检测时间:</strong> ${formatDateTime(app.checkedAt)}</p>${app.message?`<p><strong>消息:</strong> ${app.message}</p>`:''}${app.log?.stdout?`<pre>${app.log.stdout}</pre>`:''}${app.log?.stderr?`<pre style="color:#f48771">${app.log.stderr}</pre>`:''}</div></td></tr>`).join('');
 }
 
 function copyInstall(appName) {
-  const cmd = `scoop install mqbucket/${appName}`;
-  navigator.clipboard.writeText(cmd).then(() => showToast('已复制安装命令'));
+  navigator.clipboard.writeText(`scoop install mqbucket/${appName}`).then(()=>showToast('已复制安装命令')).catch(()=>showToast('复制失败'));
 }
 
 function toggleDetail(appName) {
-  const row = document.getElementById(`detail-${appName}`);
-  row.classList.toggle('show');
+  const row=document.getElementById(`detail-${appName}`);
+  if(row) row.classList.toggle('show');
 }
 
 function showToast(message) {
-  const toast = document.getElementById('toast');
-  toast.textContent = message;
+  const toast=document.getElementById('toast');
+  toast.textContent=message;
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
+  setTimeout(()=>toast.classList.remove('show'),2000);
 }
 
-function reloadData() {
-  showToast('正在重新加载数据...');
-  location.reload();
-}
-
-function showCheckHelp() {
-  document.getElementById('checkModal').classList.add('show');
-}
+function reloadData() { showToast('正在重新加载数据...'); location.reload(); }
+function showCheckHelp() { document.getElementById('checkModal').classList.add('show'); }
 
 function showCheckApp(appName) {
-  const modal = document.getElementById('checkModal');
-  const content = modal.querySelector('.modal-content');
-  content.innerHTML = `
-    <h2>🔍 检测 ${appName}</h2>
-    <p>要检测此应用的最新版本，请在终端运行：</p>
-    <pre>pwsh -File scripts/generate-status.ps1 -Application ${appName} -Token "your_token"</pre>
-    <p style="margin-top:15px;color:#858585;font-size:13px">
-    检测完成后，点击"重新加载数据"按钮刷新页面。<br>
-    注意：单个应用检测约需 2-5 秒。<br>
-    <strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong>
-    </p>
-    <button class="btn-sm" onclick="closeModal()">关闭</button>
-  `;
-  modal.classList.add('show');
+  document.querySelector('#checkModal .modal-content').innerHTML=`<h2>检测 ${appName}</h2><p>要检测此应用的最新版本，请在终端运行：</p><pre>pwsh -File scripts/generate-status.ps1 -Application "${appName}" -Token "your_token"</pre><p style="margin-top:15px;color:#858585;font-size:13px">检测完成后，点击“重新加载数据”按钮刷新页面。<br>单个应用检测通常只需数秒。<br><strong>建议使用 Token 避免 API 限流（60次/小时 → 5000次/小时）</strong></p><button class="btn-sm" onclick="closeModal()">关闭</button>`;
+  showCheckHelp();
 }
 
-function closeModal() {
-  document.getElementById('checkModal').classList.remove('show');
-}
+function closeModal() { document.getElementById('checkModal').classList.remove('show'); }
 
-document.getElementById('searchInput').addEventListener('input', filterAndRender);
-document.getElementById('statusFilter').addEventListener('change', filterAndRender);
-document.getElementById('sortBy').addEventListener('change', (e) => {
-  currentSort.key = e.target.value;
+document.getElementById('searchInput').addEventListener('input',filterAndRender);
+document.getElementById('statusFilter').addEventListener('change',filterAndRender);
+document.getElementById('sortBy').addEventListener('change',event=>{currentSort.key=event.target.value;sortApps();renderTable();});
+document.querySelectorAll('th.sortable').forEach(th=>th.addEventListener('click',()=>{
+  const key=th.dataset.sort;
+  currentSort=key===currentSort.key?{key,order:currentSort.order==='asc'?'desc':'asc'}:{key,order:'asc'};
+  document.querySelectorAll('th.sortable').forEach(item=>item.classList.remove('sort-asc','sort-desc'));
+  th.classList.add(`sort-${currentSort.order}`);
   sortApps();
   renderTable();
-});
-
-document.querySelectorAll('th.sortable').forEach(th => {
-  th.addEventListener('click', () => {
-    const key = th.dataset.sort;
-    if (currentSort.key === key) {
-      currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
-    } else {
-      currentSort.key = key;
-      currentSort.order = 'asc';
-    }
-    document.querySelectorAll('th.sortable').forEach(t => {
-      t.classList.remove('sort-asc', 'sort-desc');
-    });
-    th.classList.add(`sort-${currentSort.order}`);
-    sortApps();
-    renderTable();
-  });
-});
+}));
 
 loadStatus();
 </script>
