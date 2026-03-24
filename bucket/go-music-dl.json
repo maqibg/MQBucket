@@ -8,11 +8,10 @@
         "应用数据目录：%LOCALAPPDATA%\\go-music-dl\\",
         "  - data\\settings.db：Web 设置、本地歌单与 Cookie 数据库",
         "  - data\\downloads：桌面端受管下载目录",
-        "  - logs\\desktop-backend.log：嵌入式 Go 后端日志",
-        "  - webview\\：桌面端 WebView 数据",
-        "本包会将上述目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist",
+        "本包只会将上述 data 目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist\\data",
+        "桌面壳日志与 WebView 缓存不纳入 persist，会保留在 %LOCALAPPDATA%\\go-music-dl\\ 下作为非持久化运行数据",
         "启动器会在每次启动前将桌面端下载模式强制切换为“保存到本地目录”，并锁定到 Scoop 的 persist\\data\\downloads",
-        "启动器会把 TEMP/TMP 指向 Scoop 的 persist\\temp，用于接管嵌入式后端临时二进制"
+        "启动器会把 TEMP/TMP 指向程序目录下的临时目录，用于承载嵌入式后端临时二进制"
     ],
     "architecture": {
         "64bit": {
@@ -25,12 +24,12 @@
         "    '$ErrorActionPreference = ''Stop''',",
         "    ('$persistDir = ''{0}''' -f $persist_dir),",
         "    ('$appDir = ''{0}''' -f $dir),",
-        "    '$tempDir = Join-Path $persistDir ''temp''',",
+        "    '$tempDir = Join-Path $appDir ''temp''',",
         "    '$dataDir = Join-Path $persistDir ''data''',",
         "    '$downloadDir = Join-Path $dataDir ''downloads''',",
         "    '$settingsDb = Join-Path $dataDir ''settings.db''',",
         "    '$cookieFile = Join-Path $dataDir ''cookies.json''',",
-        "    'New-Item -ItemType Directory -Force -Path $tempDir,$dataDir,$downloadDir,(Join-Path $persistDir ''logs''),(Join-Path $persistDir ''webview'') | Out-Null',",
+        "    'New-Item -ItemType Directory -Force -Path $tempDir,$dataDir,$downloadDir | Out-Null',",
         "    '$env:TEMP = $tempDir',",
         "    '$env:TMP = $tempDir',",
         "    '$env:MUSIC_DL_CONFIG_DB = $settingsDb',",
@@ -68,13 +67,22 @@
         ]
     ],
     "post_install": [
-        "$source = Join-Path $env:LOCALAPPDATA 'go-music-dl'",
-        "$target = $persist_dir",
+        "$sourceRoot = Join-Path $env:LOCALAPPDATA 'go-music-dl'",
+        "$source = Join-Path $sourceRoot 'data'",
+        "$target = Join-Path $persist_dir 'data'",
+        "ensure $sourceRoot",
         "ensure (Join-Path $persist_dir 'data')",
         "ensure (Join-Path $persist_dir 'data\\downloads')",
-        "ensure (Join-Path $persist_dir 'logs')",
-        "ensure (Join-Path $persist_dir 'webview')",
-        "ensure (Join-Path $persist_dir 'temp')",
+        "",
+        "if (Test-Path $sourceRoot) {",
+        "    $rootItem = Get-Item -LiteralPath $sourceRoot -Force",
+        "    if ($rootItem.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        Remove-Item -LiteralPath $sourceRoot -Force",
+        "        New-Item -Path $sourceRoot -ItemType Directory -Force | Out-Null",
+        "    } elseif (-not $rootItem.PSIsContainer) {",
+        "        throw \"配置根路径已存在且不是目录：$sourceRoot\"",
+        "    }",
+        "}",
         "",
         "if (Test-Path $source) {",
         "    $item = Get-Item -LiteralPath $source -Force",
@@ -105,7 +113,7 @@
         "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
     ],
     "post_uninstall": [
-        "$source = Join-Path $env:LOCALAPPDATA 'go-music-dl'",
+        "$source = Join-Path (Join-Path $env:LOCALAPPDATA 'go-music-dl') 'data'",
         "if (Test-Path $source) {",
         "    $item = Get-Item -LiteralPath $source -Force",
         "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
@@ -113,12 +121,7 @@
         "    }",
         "}"
     ],
-    "persist": [
-        "data",
-        "logs",
-        "temp",
-        "webview"
-    ],
+    "persist": "data",
     "checkver": "github",
     "autoupdate": {
         "architecture": {
