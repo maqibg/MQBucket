@@ -5,13 +5,12 @@
     "license": "MIT",
     "notes": [
         "115+ 是一个基于 Tauri 2 + Vue 3 的 115 网盘第三方开源桌面客户端",
-        "内部状态目录 1：%APPDATA%\\io.github.lvzhenbo.115-plus-desktop\\",
+        "内部状态目录：%APPDATA%\\io.github.lvzhenbo.115-plus-desktop\\",
         "  - tauri-plugin-pinia\\setting.json：下载设置、更新代理、播放器与字幕偏好",
         "  - tauri-plugin-pinia\\user.json：accessToken、refreshToken、用户信息与最近目录",
-        "内部状态目录 2：%LOCALAPPDATA%\\io.github.lvzhenbo.115-plus-desktop\\",
-        "下载/上传任务数据库由 Tauri SQL 插件维护（downloads.db / uploads.db）",
-        "本包会将上述应用目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist",
+        "本包会将上述应用数据目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist",
         "启动器会在每次启动前将默认下载目录重写为 Scoop 的 persist\\downloads，并把 TEMP/TMP 指向 persist\\temp",
+        "%LOCALAPPDATA% 下的 WebView2 运行缓存不纳入 persist",
         "若你在应用运行中手动改下载目录，本次会话后续下载会遵循你的设置；下次启动会重置回 Scoop 目录"
     ],
     "architecture": {
@@ -117,39 +116,26 @@
         "}",
         "",
         "ensure (Join-Path $persist_dir 'data')",
-        "ensure (Join-Path $persist_dir 'localdata')",
         "ensure (Join-Path $persist_dir 'downloads')",
         "ensure (Join-Path $persist_dir 'temp')",
         "ensure (Join-Path $persist_dir 'data\\tauri-plugin-pinia')",
         "",
         "& $ensureJunction (Join-Path $env:APPDATA 'io.github.lvzhenbo.115-plus-desktop') (Join-Path $persist_dir 'data')",
-        "& $ensureJunction (Join-Path $env:LOCALAPPDATA 'io.github.lvzhenbo.115-plus-desktop') (Join-Path $persist_dir 'localdata')",
-        "",
         "& powershell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $dir '115-plus-desktop-launcher.ps1') -PrepareOnly"
     ],
     "post_uninstall": [
-        "$paths = @(",
-        "    (Join-Path $env:APPDATA 'io.github.lvzhenbo.115-plus-desktop'),",
-        "    (Join-Path $env:LOCALAPPDATA 'io.github.lvzhenbo.115-plus-desktop')",
-        ")",
-        "foreach ($path in $paths) {",
-        "    if (Test-Path $path) {",
-        "        $item = Get-Item -LiteralPath $path -Force",
-        "        if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
-        "            Remove-Item -LiteralPath $path -Force",
-        "        }",
+        "$path = Join-Path $env:APPDATA 'io.github.lvzhenbo.115-plus-desktop'",
+        "if (Test-Path $path) {",
+        "    $item = Get-Item -LiteralPath $path -Force",
+        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        Remove-Item -LiteralPath $path -Force",
         "    }",
         "}"
     ],
     "persist": [
         "data",
-        "localdata",
         "downloads",
-        "temp",
-        [
-            "oof-plus-desktop.exe.WebView2",
-            "webview2"
-        ]
+        "temp"
     ],
     "checkver": "github",
     "autoupdate": {
