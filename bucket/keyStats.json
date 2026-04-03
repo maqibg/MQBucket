@@ -1,12 +1,12 @@
 {
-    "version": "1.41",
+    "version": "1.42",
     "description": "Keyboard & Mouse Stats for Windows - track your typing and clicking statistics",
     "homepage": "https://github.com/debugtheworldbot/keyStats",
     "license": "MIT",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/debugtheworldbot/keyStats/releases/download/v1.41/KeyStats-Windows-1.41.zip",
-            "hash": "02cf2cda7343a8d1bc2742a9cbb749bbcd08ff3f616330e65cd7db941671455f"
+            "url": "https://github.com/debugtheworldbot/keyStats/releases/download/v1.42/KeyStats-Windows-1.42.zip",
+            "hash": "7a0de11450ecc4f09402c80881e2d577873ca9c22ef0484b8e2f4ab0c3f6e5a5"
         }
     },
     "bin": "KeyStats.exe",
