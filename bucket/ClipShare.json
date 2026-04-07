@@ -1,12 +1,13 @@
 {
-    "version": "1.4.3",
+    "version": "1.4.3+25",
     "description": "ClipShare - A cross-platform clipboard sharing tool with cloud sync support",
     "homepage": "https://github.com/aa2013/ClipShare",
     "license": "GPL-3.0-only",
     "notes": [
         "ClipShare 是一个跨平台的剪贴板共享工具",
-        "用户数据目录：%USERPROFILE%\\Documents\\ClipShare\\",
-        "本包会将该目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist"
+        "源码表明：Windows 桌面端在程序目录可写时，会把 clipshare.db、files/、logs/、jieba/ 等用户数据直接写到安装目录",
+        "源码同时会把备份、更新下载缓存、appIcons 等写到 %USERPROFILE%\\Documents\\ClipShare\\",
+        "本包会持久化上述用户数据，但不会接管安装包自带的 current\\data 运行时资源目录"
     ],
     "url": "https://github.com/aa2013/ClipShare/releases/download/v1.4.3/clipshare-1.4.3%2B25-windows-setup.zip",
     "hash": "de49d0479ca08f30f0a7c2e5e1a97d14b921d896f9f2ab8b390d6857d728a88b",
@@ -19,7 +20,7 @@
     ],
     "post_install": [
         "$source = Join-Path ([Environment]::GetFolderPath('MyDocuments')) 'ClipShare'",
-        "$target = Join-Path $persist_dir 'data'",
+        "$target = Join-Path $persist_dir 'documents'",
         "ensure $target",
         "",
         "if (Test-Path $source) {",
@@ -50,13 +51,18 @@
         "",
         "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
     ],
-    "persist": "data",
+    "persist": [
+        "clipshare.db",
+        "files",
+        "logs",
+        "jieba"
+    ],
     "checkver": {
         "url": "https://api.github.com/repos/aa2013/ClipShare/releases/latest",
         "jsonpath": "$..assets[*].name",
-        "regex": "clipshare-([\\d.]+)\\+([\\d]+)-windows-setup\\.zip"
+        "regex": "clipshare-(?<version>[\\d.]+\\+[\\d]+)-windows-setup\\.zip"
     },
     "autoupdate": {
-        "url": "https://github.com/aa2013/ClipShare/releases/download/v$match1/clipshare-$match1%2B$match2-windows-setup.zip"
+        "url": "https://github.com/aa2013/ClipShare/releases/download/v$matchHead/clipshare-$version-windows-setup.zip"
     }
 }
