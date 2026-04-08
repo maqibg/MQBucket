@@ -1,5 +1,5 @@
 {
-    "version": "3.6.4",
+    "version": "3.6.5",
     "description": "Full-featured download manager rebuilt with Tauri 2 and aria2 sidecar",
     "homepage": "https://github.com/AnInsomniacy/motrix-next",
     "license": "MIT",
@@ -17,12 +17,12 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.6.4/MotrixNext_3.6.4_x64-setup.exe#/dl.7z",
-            "hash": "7cb162f984a8a1e3ff5d4b44247fc5d49888f91ec1d8879ad6b65e32306207d4"
+            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.6.5/MotrixNext_3.6.5_x64-setup.exe#/dl.7z",
+            "hash": "f49ea0e95f907206007281ffa193b27245ec6ddc093ae1554b7bb9976c426fcb"
         },
         "arm64": {
-            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.6.4/MotrixNext_3.6.4_arm64-setup.exe#/dl.7z",
-            "hash": "9735ae738a9958888e589f6ce5885de524e349e6fadef0c9a4278ef359b54ce0"
+            "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.6.5/MotrixNext_3.6.5_arm64-setup.exe#/dl.7z",
+            "hash": "f55903f0c20093fa4d38672696f2b8e5517d1a77ea1fce58347c1c1e282cdf99"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$PLUGINSDIR\" -Force -Recurse -ErrorAction SilentlyContinue",
