@@ -1,10 +1,10 @@
 {
-    "version": "0.5.1",
+    "version": "0.6.0",
     "description": "Modern native dashboard for managing WSL distributions",
     "homepage": "https://github.com/owu/wsl-dashboard",
     "license": "GPL-3.0-only",
-    "url": "https://github.com/owu/wsl-dashboard/releases/download/v0.5.1/wsldashboard.v0.5.1.exe",
-    "hash": "9afea18876830e4f3862669c4e394db76f73d2514229cfe2c95f2e24cbd10f94",
+    "url": "https://github.com/owu/wsl-dashboard/releases/download/v0.6.0/wsldashboard.v0.6.0.exe",
+    "hash": "b6050108f2efe4526131ee9cff79484f1b165577c18829fe96e3d7df5738b70b",
     "notes": [
         "源码确认默认用户数据根目录：%USERPROFILE%\\.wsldashboard\\",
         "  - settings.toml：主配置、日志目录、更新周期、深浅色、托盘选项等",
