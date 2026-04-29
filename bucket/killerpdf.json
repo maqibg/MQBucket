@@ -16,7 +16,6 @@
             "KillerPDF"
         ]
     ],
-    "persist": "signatures.json",
     "checkver": {
         "github": "https://github.com/SteveTheKiller/KillerPDF"
     },
