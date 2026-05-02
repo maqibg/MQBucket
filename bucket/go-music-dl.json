@@ -1,5 +1,5 @@
 {
-    "version": "1.0.15",
+    "version": "1.0.19",
     "description": "Desktop GUI shell for Go Music DL with Web and TUI powered backend",
     "homepage": "https://github.com/guohuiyuan/go-music-dl",
     "license": "AGPL-3.0-only",
@@ -15,8 +15,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v1.0.15/go-music-dl-desktop-windows-amd64.zip",
-            "hash": "d0ed2b78cc8936ec7431dd668625a59666e8734649535df0393f484a393c8860"
+            "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v1.0.19/music-dl-desktop-go_windows_amd64.zip",
+            "hash": "a0dbb8737a28379318e7ffa79e02cf45f396b3c43a6b8837eb9d340059f09236"
         }
     },
     "pre_install": [
@@ -126,7 +126,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v$version/go-music-dl-desktop-windows-amd64.zip"
+                "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v$version/music-dl-desktop-go_windows_amd64.zip"
             }
         },
         "hash": {
