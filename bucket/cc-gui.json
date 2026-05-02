@@ -1,12 +1,12 @@
 {
     "version": "0.4.12",
-    "description": "An AI coding assistant desktop client integrating Claude Code, Codex, Gemini CLI and more, built with Tauri",
+    "description": "Next-generation VibeCoding editor powered by Claude Code, Codex, and more, built with Tauri",
     "homepage": "https://github.com/zhukunpenglinyutong/desktop-cc-gui",
     "license": "AGPL-3.0-only",
     "notes": [
-        "CodeMoss 是一个多 AI 编程助手桌面客户端，集成 Claude Code、Codex、Gemini CLI 等工具",
-        "用户数据目录 1：%LOCALAPPDATA%\\com.zhukunpenglinyutong.codemoss\\",
-        "用户数据目录 2：%USERPROFILE%\\.codemoss\\",
+        "CC GUI (原 CodeMoss) 是一个下一代 AI 编程编辑器，集成 Claude Code、Codex 等工具",
+        "用户数据目录 1：%LOCALAPPDATA%\\com.zhukunpenglinyutong.ccgui\\",
+        "用户数据目录 2：%USERPROFILE%\\.ccgui\\",
         "本包会将这两个目录持久化到 Scoop 的 persist，并在原路径创建 Junction 指向 persist"
     ],
     "architecture": {
@@ -16,11 +16,11 @@
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
-    "bin": "moss-x.exe",
+    "bin": "cc-gui.exe",
     "shortcuts": [
         [
-            "moss-x.exe",
-            "CodeMoss"
+            "cc-gui.exe",
+            "CC GUI"
         ]
     ],
     "post_install": [
@@ -58,12 +58,12 @@
         "    New-Item -Path $source -ItemType Junction -Value $target | Out-Null",
         "}",
         "",
-        "& $createJunction (Join-Path $env:LOCALAPPDATA 'com.zhukunpenglinyutong.codemoss') 'data'",
-        "& $createJunction (Join-Path $env:USERPROFILE '.codemoss') 'dotcodemoss'"
+        "& $createJunction (Join-Path $env:LOCALAPPDATA 'com.zhukunpenglinyutong.ccgui') 'data'",
+        "& $createJunction (Join-Path $env:USERPROFILE '.ccgui') 'dotccgui'"
     ],
     "persist": [
         "data",
-        "dotcodemoss"
+        "dotccgui"
     ],
     "checkver": {
         "github": "https://github.com/zhukunpenglinyutong/desktop-cc-gui"
