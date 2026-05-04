@@ -112,7 +112,7 @@ async function fetchBucketManifestList(repo) {
       const response=await fetch(`https://api.github.com/repos/${repo.owner}/${repo.name}/contents/bucket?ref=${encodeURIComponent(ref)}`,{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
       if(!response.ok) throw new Error(`GitHub API ${response.status}`);
       const items=await response.json();
-      return items.filter(item=>item.type==='file'&&item.name.endsWith('.json')&&item.name!=='app-name.json.template').map(item=>({name:item.name.replace(/\.json$/i,''),manifestPath:`bucket/${item.name}`,downloadUrl:item.download_url}));
+      return items.filter(item=>item.type==='file'&&item.name.endsWith('.json')&&item.name!=='app-name.json.template').map(item=>({name:item.name.replace(/\.json$/i,''),manifestPath:`bucket/${item.name}`,downloadUrl:`https://raw.githubusercontent.com/${repo.owner}/${repo.name}/${ref}/bucket/${item.name}`}));
     } catch (error) {
       lastError=error;
     }
