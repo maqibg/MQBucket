@@ -16,7 +16,7 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v1.0.30/music-dl-desktop-go_windows_amd64.zip",
-            "hash": "ea072c17e4abe1b4287b8a8d226085cf874ac8fe69a11f5d1985cb19e62bf820"
+            "hash": "8071ff0faee57121cf89d6b86e83fef7c81714b8de37ec5657e50b90383e2664"
         }
     },
     "pre_install": [
