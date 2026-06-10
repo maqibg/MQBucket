@@ -1,5 +1,5 @@
 {
-    "version": "0.41.5",
+    "version": "0.41.7",
     "description": "An ultra-lightweight open-source AI Markdown editor built with Tauri v2, featuring local AI integration and MCP ecosystem",
     "homepage": "https://github.com/zouwei/moraya",
     "license": "Apache-2.0",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zouwei/moraya/releases/download/v0.41.5/Moraya_0.41.5_win_x64-setup.exe#/dl.7z",
-            "hash": "5b104e071774b544f37612cf49ea5bdcf9026da1f91f8fa5a3b206789e109709"
+            "url": "https://github.com/zouwei/moraya/releases/download/v0.41.7/Moraya_0.41.7_win_x64-setup.exe#/dl.7z",
+            "hash": "6eb39f41034fe132b593e24a9ca073b72d3e4891bd68bac272bd687a80d6fac7"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
