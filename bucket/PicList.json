@@ -1,5 +1,5 @@
 {
-    "version": "3.4.0",
+    "version": "3.5.0",
     "description": "PicList - 高效的云存储和图床平台管理工具，基于 PicGo 深度二次开发",
     "homepage": "https://piclist.cn",
     "license": "MIT",
@@ -9,8 +9,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Kuingsmile/PicList/releases/download/v3.4.0/PicList-Setup-3.4.0-x64-portable.7z",
-            "hash": "fa63eddd1b97eacc565c9519e2900714819fff2eb32ccb6ba75c68781f2a84bb"
+            "url": "https://github.com/Kuingsmile/PicList/releases/download/v3.5.0/PicList-Setup-3.5.0-x64-portable.7z",
+            "hash": "e08b1bca93be5f6a06feca34f0ae96411dd0ebd3f97a7f928d11f80fe3489a81"
         }
     },
     "post_install": [
