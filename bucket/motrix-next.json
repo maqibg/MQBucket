@@ -1,31 +1,27 @@
 {
     "version": "3.9.4",
-    "description": "Full-featured download manager rebuilt with Tauri 2 and aria2 sidecar",
+    "description": "A full-featured download manager — rebuilt from the ground up.",
     "homepage": "https://github.com/AnInsomniacy/motrix-next",
     "license": "MIT",
     "notes": [
-        "源码与 Tauri 配置确认核心数据目录：%APPDATA%\\com.motrix.next\\",
-        "  - config.json：前端偏好设置（主题、语言、目录历史、托盘/窗口选项等）",
-        "  - system.json：aria2 运行参数快照（端口、代理、BT/HTTP 设置等）",
-        "  - user.json：Rust 侧用户配置 store",
-        "  - history.db（以及 -wal / -shm）：已完成/失败任务历史",
-        "  - download.session：aria2 活动/暂停任务会话",
-        "源码与 Tauri 配置确认日志目录：%LOCALAPPDATA%\\com.motrix.next\\logs\\motrix-next.log",
-        "安装目录内的 binaries\\aria2.conf 与 motrixnext-aria2c.exe 属于程序资源/sidecar，不是用户数据，不纳入 Scoop persist",
-        "Scoop 采用解包安装；magnet/thunder 协议、.torrent/.metalink 文件关联和应用内自更新链路不会由 bucket 接管，建议通过 scoop update motrix-next 更新",
-        "本包会将上述核心数据目录和日志目录持久化到 Scoop persist，并在原路径创建 Junction"
+        "核心数据目录：%APPDATA%\\com.motrix.next\\",
+        "  - config.json / system.json / user.json：偏好设置与 aria2 参数",
+        "  - history.db / download.session：任务历史与会话",
+        "日志目录：%LOCALAPPDATA%\\com.motrix.next\\logs\\",
+        "安装目录内的 binaries\\aria2.conf 与 motrixnext-aria2c.exe 为程序 sidecar，不纳入 persist",
+        "个人数据通过 Junction 持久化到 Scoop persist"
     ],
     "architecture": {
         "64bit": {
             "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.9.4/MotrixNext_3.9.4_x64-setup.exe#/dl.7z",
-            "hash": "0aa5d48ed2a0b3a4ce1fa2687fa9ab1dea1d4f091d93d3cab44bbf3b0dc90bcb"
+            "hash": "5cb0483478262cbb99afa77617b9f05f001f02c89db1b08589ad5eccd053cfd7"
         },
         "arm64": {
             "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v3.9.4/MotrixNext_3.9.4_arm64-setup.exe#/dl.7z",
-            "hash": "e0204a67ff258a0e7c98ed57142753931fdf4c93e4dcedf6ebe9a71137aa46cd"
+            "hash": "6b4e8bf7bcefec41ac5ac8675a10291d99f2904c0e7203c6bca14b8325bd6ad2"
         }
     },
-    "pre_install": "Remove-Item \"$dir\\`$PLUGINSDIR\" -Force -Recurse -ErrorAction SilentlyContinue",
+    "pre_install": "Remove-Item -Path \"$dir\\`$*\" -Force -Recurse",
     "bin": [
         [
             "motrix-next.exe",
@@ -99,7 +95,9 @@
         "data",
         "logs"
     ],
-    "checkver": "github",
+    "checkver": {
+        "github": "https://github.com/AnInsomniacy/motrix-next"
+    },
     "autoupdate": {
         "architecture": {
             "64bit": {
@@ -108,9 +106,6 @@
             "arm64": {
                 "url": "https://github.com/AnInsomniacy/motrix-next/releases/download/v$version/MotrixNext_$version_arm64-setup.exe#/dl.7z"
             }
-        },
-        "hash": {
-            "mode": "download"
         }
     }
 }
