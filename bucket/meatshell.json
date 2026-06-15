@@ -11,7 +11,8 @@
     "architecture": {
         "64bit": {
             "url": "https://github.com/jeff141/meatshell/releases/download/v0.4.6/meatshell-v0.4.6-windows-x86_64.zip",
-            "hash": "f8051528156713dca0d376c8761cf8e87538ac274d9d3e7a7aa0c06d8d4705c1"
+            "hash": "f8051528156713dca0d376c8761cf8e87538ac274d9d3e7a7aa0c06d8d4705c1",
+            "extract_dir": "meatshell-v0.4.6-windows-x86_64"
         }
     },
     "bin": "meatshell.exe",
@@ -63,7 +64,8 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/jeff141/meatshell/releases/download/v$version/meatshell-v$version-windows-x86_64.zip"
+                "url": "https://github.com/jeff141/meatshell/releases/download/v$version/meatshell-v$version-windows-x86_64.zip",
+                "extract_dir": "meatshell-v$version-windows-x86_64"
             }
         }
     }
