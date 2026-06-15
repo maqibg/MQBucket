@@ -16,7 +16,9 @@
     "installer": {
         "script": [
             "Write-Host 'Installing npm production dependencies...'",
-            "& npm.cmd install --omit=dev --no-audit --no-fund --ignore-scripts --package-lock=false --prefix \"$dir\"",
+            "Push-Location $dir",
+            "& npm.cmd install --omit=dev --no-audit --no-fund --ignore-scripts --package-lock=false",
+            "Pop-Location",
             "if ($LASTEXITCODE -ne 0) { throw 'npm install failed' }",
             "",
             "$launcher = @('@echo off', 'node \"%~dp0bin\\buildby.js\" %*')",
