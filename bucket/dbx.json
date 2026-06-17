@@ -20,6 +20,9 @@
         "DBX is NOT portable.",
         "Settings are stored in '%APPDATA%\\com.dbx.app', and can be purged using 'scoop uninstall --purge dbx'."
     ],
+    "persist": [
+        "data"
+    ],
     "checkver": "github",
     "autoupdate": {
         "architecture": {
