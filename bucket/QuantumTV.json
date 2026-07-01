@@ -1,5 +1,5 @@
 {
-    "version": "0.7.4",
+    "version": "0.7.5",
     "description": "A cross-platform local media aggregator player built with Next.js and Tauri",
     "homepage": "https://github.com/Geon97/QuantumTV",
     "license": {
@@ -17,8 +17,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Geon97/QuantumTV/releases/download/v0.7.4/QuantumTV_0.7.4_x64-setup.exe#/dl.7z",
-            "hash": "3a7cce69f3dc276fb720959acfaff7cd8c07934389757c26912d8f1efa6c728d"
+            "url": "https://github.com/Geon97/QuantumTV/releases/download/v0.7.5/QuantumTV_0.7.5_x64-setup.exe#/dl.7z",
+            "hash": "9464d9683b1214bb478fc7ffdada5291f57450773e4508930dcc4894f04e553b"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$PLUGINSDIR\" -Force -Recurse -ErrorAction SilentlyContinue",
