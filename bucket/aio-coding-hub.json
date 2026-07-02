@@ -1,5 +1,5 @@
 {
-    "version": "0.60.2",
+    "version": "0.60.3",
     "description": "本地 AI CLI 统一网关 - 路由 Claude Code、Codex 和 Gemini CLI 请求",
     "homepage": "https://github.com/dyndynjyxa/aio-coding-hub",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/dyndynjyxa/aio-coding-hub/releases/download/aio-coding-hub-v0.60.2/AIO.Coding.Hub_0.60.2_x64_en-US.msi",
-            "hash": "ceec2f3ce6cde07f065d497482cce430cb18464d3f695c86d5dd4c9250bb0d67",
+            "url": "https://github.com/dyndynjyxa/aio-coding-hub/releases/download/aio-coding-hub-v0.60.3/AIO.Coding.Hub_0.60.3_x64_en-US.msi",
+            "hash": "13bb7b980d6b71414bcc2887054747df3fce1ce009934c5f04f52de9eae87bc9",
             "extract_dir": "PFiles/AIO Coding Hub"
         }
     },
