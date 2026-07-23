@@ -1,5 +1,5 @@
 {
-    "version": "0.6.3",
+    "version": "0.6.4",
     "description": "A modern MCP (Model Context Protocol) manager built with Tauri",
     "homepage": "https://github.com/maqibg/moor",
     "license": "MIT",
@@ -10,8 +10,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/maqibg/moor/releases/download/v0.6.3/Moor_0.6.3_x64-setup.exe#/dl.7z",
-            "hash": "89971ca87c82f99f43b9b1b0229bd24aa151b022dd67fb5b787a5ecdf684bb1e"
+            "url": "https://github.com/maqibg/moor/releases/download/v0.6.4/Moor_0.6.4_x64-setup.exe#/dl.7z",
+            "hash": "30a1c0e18ae2b9a78568d862ed29630d8c939a7c962bca12a4ce82c4e36547f0"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
