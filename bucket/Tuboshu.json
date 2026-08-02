@@ -69,7 +69,9 @@
     ],
     "persist": "data",
     "checkver": {
-        "github": "https://github.com/deepshit2025/tuboshu"
+        "url": "https://api.github.com/repos/deepshit2025/tuboshu/releases",
+        "jsonpath": "$..assets[*].name",
+        "regex": "Tuboshu-Setup-(?<version>[\\d.]+)-win-arm64\\.exe"
     },
     "autoupdate": {
         "architecture": {

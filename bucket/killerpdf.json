@@ -1,12 +1,12 @@
 {
-    "version": "1.2.0",
+    "version": "1.7.0",
     "description": "PDF editor for field techs — view, annotate, merge, split, edit text, draw, sign, print, flatten, and open password-protected PDFs",
     "homepage": "https://github.com/SteveTheKiller/KillerPDF",
     "license": "GPL-3.0-only",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/SteveTheKiller/KillerPDF/releases/download/v1.2.0/KillerPDF.zip",
-            "hash": "365a4ef2d2b606a58c309c2a1acd6f12f61391789ff798826d35792256290f9c",
+            "url": "https://github.com/SteveTheKiller/KillerPDF/releases/download/v1.7.0/KillerPDF.exe",
+            "hash": "3a0b403962772170a176dacc406b44928c2ae8cbd1bbbfdb1f949223454d6281",
             "bin": "KillerPDF.exe"
         }
     },
@@ -22,7 +22,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/SteveTheKiller/KillerPDF/releases/download/v$version/KillerPDF.zip"
+                "url": "https://github.com/SteveTheKiller/KillerPDF/releases/download/v$version/KillerPDF.exe"
             }
         },
         "hash": {

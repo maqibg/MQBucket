@@ -24,8 +24,5 @@
     "checkver": {
         "url": "https://github.com/HaujetZhao/QuickCut/releases/latest",
         "regex": "href=\"\\/HaujetZhao\\/QuickCut\\/releases\\/tag\\/v(.*?)\""
-    },
-    "autoupdate": {
-        "url": "https://github.com/Weidows-projects/scoop-3rd/releases/download/1.0.0/QuickCut.7z"
     }
 }
