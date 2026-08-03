@@ -1,0 +1,119 @@
+name: Update CodeSwitchR
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: update-codeswitchr
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.repository == 'maqibg/MQBucket'
+    runs-on: windows-latest
+    steps:
+      - name: Checkout bucket
+        uses: actions/checkout@v4
+
+      - name: Update and push CodeSwitchR
+        shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+
+          $manifestPath = Join-Path $env:GITHUB_WORKSPACE 'bucket\CodeSwitchR.json'
+          $apiHeaders = @{
+            Accept = 'application/vnd.github+json'
+            'X-GitHub-Api-Version' = '2022-11-28'
+            'User-Agent' = 'MQBucket-CodeSwitchR-Updater'
+          }
+          if ($env:GITHUB_TOKEN) {
+            $apiHeaders.Authorization = "Bearer $env:GITHUB_TOKEN"
+          }
+          $downloadHeaders = @{
+            Accept = 'application/octet-stream'
+            'User-Agent' = 'MQBucket-CodeSwitchR-Updater'
+          }
+
+          $release = Invoke-RestMethod `
+            -Uri 'https://api.github.com/repos/maqibg/code-switch-R/releases/latest' `
+            -Headers $apiHeaders
+          if ($release.draft -or $release.prerelease) {
+            throw 'The latest CodeSwitchR release is not a published stable release.'
+          }
+
+          $tagMatch = [regex]::Match([string]$release.tag_name, '^v(?<version>\d+\.\d+\.\d+)$')
+          if (-not $tagMatch.Success) {
+            throw "Unsupported CodeSwitchR release tag: $($release.tag_name)"
+          }
+          $version = $tagMatch.Groups['version'].Value
+
+          $manifestText = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8
+          $manifest = $manifestText | ConvertFrom-Json
+          if (-not $manifest.version -or -not $manifest.url -or -not $manifest.hash) {
+            throw 'CodeSwitchR manifest is missing version, url, or hash.'
+          }
+          if ([version]$version -lt [version]$manifest.version) {
+            throw "Refusing to downgrade CodeSwitchR from $($manifest.version) to $version."
+          }
+          if ([version]$version -eq [version]$manifest.version) {
+            Write-Host "CodeSwitchR $version is already current; skipping asset download."
+            exit 0
+          }
+
+          $exeAssets = @($release.assets | Where-Object name -eq 'codeSwitchR.exe')
+          $checksumAssets = @($release.assets | Where-Object name -eq 'codeSwitchR.exe.sha256')
+          if ($exeAssets.Count -ne 1 -or $checksumAssets.Count -ne 1) {
+            throw 'The latest CodeSwitchR release must contain exactly one executable and one SHA256 asset.'
+          }
+
+          $releaseUrl = [string]$exeAssets[0].browser_download_url
+          $tempDir = Join-Path $env:RUNNER_TEMP "codeswitchr-$version"
+          New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
+          $exePath = Join-Path $tempDir 'codeSwitchR.exe'
+          $checksumPath = Join-Path $tempDir 'codeSwitchR.exe.sha256'
+          Invoke-WebRequest -Uri $releaseUrl -Headers $downloadHeaders -OutFile $exePath
+          Invoke-WebRequest -Uri ([string]$checksumAssets[0].browser_download_url) -Headers $downloadHeaders -OutFile $checksumPath
+
+          $computedHash = (Get-FileHash -Algorithm SHA256 -LiteralPath $exePath).Hash.ToLowerInvariant()
+          $checksumLine = (Get-Content -LiteralPath $checksumPath -Raw -Encoding UTF8).Trim()
+          $checksumMatch = [regex]::Match($checksumLine, '^(?<hash>[0-9a-fA-F]{64})\s+codeSwitchR\.exe\s*$')
+          if (-not $checksumMatch.Success -or $checksumMatch.Groups['hash'].Value.ToLowerInvariant() -ne $computedHash) {
+            throw "CodeSwitchR $version SHA256 verification failed."
+          }
+
+          $oldVersionToken = '"version": "' + $manifest.version + '"'
+          $oldUrlToken = '"url": "' + $manifest.url + '"'
+          $oldHashToken = '"hash": "' + $manifest.hash + '"'
+          foreach ($token in @($oldVersionToken, $oldUrlToken, $oldHashToken)) {
+            if ([regex]::Matches($manifestText, [regex]::Escape($token)).Count -ne 1) {
+              throw "Expected exactly one manifest token was not found: $token"
+            }
+          }
+
+          $updatedText = $manifestText.Replace($oldVersionToken, '"version": "' + $version + '"')
+          $updatedText = $updatedText.Replace($oldUrlToken, '"url": "' + $releaseUrl + '"')
+          $updatedText = $updatedText.Replace($oldHashToken, '"hash": "' + $computedHash + '"')
+          $updatedText | ConvertFrom-Json | Out-Null
+          Set-Content -LiteralPath $manifestPath -Value $updatedText -Encoding utf8NoBOM
+
+          $changedPaths = @(git status --porcelain=v1 | ForEach-Object { $_.Substring(3) } | Where-Object { $_ })
+          if ($changedPaths.Count -ne 1 -or $changedPaths[0] -ne 'bucket/CodeSwitchR.json') {
+            throw "Only bucket/CodeSwitchR.json may change, found: $($changedPaths -join ', ')"
+          }
+          git diff --check
+          git add -- bucket/CodeSwitchR.json
+          $stagedPaths = @(git diff --cached --name-only)
+          if ($stagedPaths.Count -ne 1 -or $stagedPaths[0] -ne 'bucket/CodeSwitchR.json') {
+            throw "Only bucket/CodeSwitchR.json may be staged, found: $($stagedPaths -join ', ')"
+          }
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "CodeSwitchR: Update to version $version"
+          git push origin "HEAD:$env:DEFAULT_BRANCH"
