@@ -1,5 +1,5 @@
 {
-    "version": "0.9.0",
+    "version": "1.0.0",
     "description": "GPU-accelerated Windows terminal with resident sessions, AI CLI notifications, native SSH/SFTP, and Markdown/TeX viewing",
     "homepage": "https://github.com/Kuddev/nebula",
     "license": "GPL-3.0-or-later",
@@ -13,8 +13,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Kuddev/nebula/releases/download/v0.9.0/NebulaTerminal-v0.9.0-windows-x64.zip",
-            "hash": "2d178c07ee3ab556ff64772e9b84f2fc5ca85f5ef80fdf1f64f2189e7ee3c783"
+            "url": "https://github.com/Kuddev/nebula/releases/download/v1.0.0/NebulaTerminal-v1.0.0-windows-x64.zip",
+            "hash": "38da484b35e92d76592ed629900f31a76ad5468ca4e0d59adfb44ee3555cd04f"
         }
     },
     "pre_install": [
