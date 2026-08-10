@@ -1,5 +1,5 @@
 {
-    "version": "0.8.2",
+    "version": "0.8.3",
     "description": "The world's first open-source AI-native vector design tool with concurrent Agent Teams. Design-as-Code alternative to Pencil",
     "homepage": "https://github.com/ZSeven-W/openpencil",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/ZSeven-W/openpencil/releases/download/v0.8.2/openpencil-desktop-windows-x86_64.zip",
-            "hash": "e09601fd4980cbcbab69a4c46d3b8a6ca3d9771c4fbd116ead3137ca1bcf808f"
+            "url": "https://github.com/ZSeven-W/openpencil/releases/download/v0.8.3/openpencil-desktop-windows-x86_64.zip",
+            "hash": "b5781ce82bf6b13f5aa4d1bd88616fc0d012290ad93b97f4978bb2ee2e58e91b"
         }
     },
     "bin": [
