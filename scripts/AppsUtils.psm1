@@ -3,13 +3,13 @@ Set-StrictMode -Version 3.0
 
 <#
 .SYNOPSIS
-    Scoop 辅助模块：安全运行外部命令、UTF-8 文件输出、持久化数据挂载
+    Scoop 辅助模块：安全执行外部命令、UTF-8 文件输出、持久化数据挂载
 .DESCRIPTION
     提供 Invoke-ExternalCommand2、Out-UTF8File、Mount-ExternalRuntimeData、Dismount-ExternalRuntimeData
     用于 Scoop bucket 中应用的安装/卸载脚本。
 #>
 
-# 辅助函数：将路径转为合法文件路径（用于日志）
+# 辅助函数：确保日志目录存在
 function Format-LogPath {
     param([string]$Path)
     $dir = Split-Path $Path -Parent
