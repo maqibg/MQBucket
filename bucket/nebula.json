@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "GPU-accelerated Windows terminal with resident sessions, AI CLI notifications, native SSH/SFTP, and Markdown/TeX viewing",
     "homepage": "https://github.com/Kuddev/nebula",
     "license": "GPL-3.0-or-later",
@@ -7,14 +7,14 @@
         "Application data: %APPDATA%\\Nebula\\ (settings, command history, sessions, SSH profiles, sync state, and logs)",
         "This package migrates the complete data directory into Scoop persist and mounts it through a Junction",
         "Keep the ZIP layout intact; runtime\\conpty.dll, runtime\\OpenConsole.exe, and runtime\\nebula-hook.exe are required",
-        "The bundled Maple Mono font has a runtime fallback; installing fonts\\MapleMonoNormal-NF-CN-Regular.ttf into Windows is optional but recommended",
+        "The v1.1.0 portable ZIP embeds Maple Mono in nebula.exe and no longer includes a fonts\\ directory; the app can materialize the embedded font under %APPDATA%\\Nebula\\fonts when the optional font-install prompt is used",
         "Nebula may update its own entries in Claude, Codex, opencode, and Pi configuration files; those external tool configs remain user-owned",
         "Close Nebula before installing, updating, or uninstalling this package"
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/Kuddev/nebula/releases/download/v1.0.0/NebulaTerminal-v1.0.0-windows-x64.zip",
-            "hash": "38da484b35e92d76592ed629900f31a76ad5468ca4e0d59adfb44ee3555cd04f"
+            "url": "https://github.com/Kuddev/nebula/releases/download/v1.1.0/NebulaTerminal-v1.1.0-windows-x64.zip",
+            "hash": "1213fb61f5dead02a0442e77801d9a2e92382f18e26b1e77e0a0be366f8b6fd7"
         }
     },
     "pre_install": [
