@@ -1,5 +1,5 @@
 {
-    "version": "2.0.4",
+    "version": "2.0.5",
     "description": "An intelligent AI model gateway for Claude Code, Codex, and Gemini CLI tools",
     "homepage": "https://github.com/mos1128/ccg-gateway",
     "license": "MIT",
@@ -7,8 +7,8 @@
         "CCG Gateway 提供统一代理接口、负载均衡和自动故障转移",
         "技术栈: Python 3.10+, FastAPI, Vue 3.5+"
     ],
-    "url": "https://github.com/mos1128/ccg-gateway/releases/download/v2.0.4/ccg-gateway.exe",
-    "hash": "184d490a27df019251e96de51b11fde5cedca2277c0e7e4e644a14fbfcee56ab",
+    "url": "https://github.com/mos1128/ccg-gateway/releases/download/v2.0.5/ccg-gateway.exe",
+    "hash": "47c9c6d5d2c720327b2463fe0d6d72061dfc6caffa3cd521229ffb131bcd3b54",
     "bin": "ccg-gateway.exe",
     "shortcuts": [
         [
