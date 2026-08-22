@@ -1,5 +1,5 @@
 {
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Safety-first disk cleaner and disk space analyzer for macOS and Windows, with a duplicate file finder, large file cleanup, and app uninstaller",
     "homepage": "https://github.com/harry0703/MangoDisk",
     "license": "GPL-3.0-only",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/harry0703/MangoDisk/releases/download/v1.0.5/MangoDisk-1.0.5-windows.exe#/dl.7z",
-            "hash": "13b8ed97d32fc13180ecf64dbcf93ce05c426523971cfea7940ec089e3eaf24d"
+            "url": "https://github.com/harry0703/MangoDisk/releases/download/v1.0.6/MangoDisk-1.0.6-windows.exe#/dl.7z",
+            "hash": "eec94da6587ea26f8d7bb0a73ad1bae6ac2b274009d260dc1e5a786e866f363a"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
