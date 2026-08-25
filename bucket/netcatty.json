@@ -1,5 +1,5 @@
 {
-    "version": "1.1.81",
+    "version": "1.1.82",
     "description": "Modern SSH manager and terminal app with host grouping, SFTP, keychain and port forwarding",
     "homepage": "https://github.com/binaricat/Netcatty",
     "license": "GPL-3.0-or-later",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/binaricat/Netcatty/releases/download/v1.1.81/Netcatty-1.1.81-win-x64.exe#/dl.7z",
-            "hash": "cea8a8cd6ebe51d070ef0d44551b98afe9c58e188ba336607774760314f128c4"
+            "url": "https://github.com/binaricat/Netcatty/releases/download/v1.1.82/Netcatty-1.1.82-win-x64.exe#/dl.7z",
+            "hash": "f0c61d875d534aee04f25dff0bc8ed1adc417d02a4ecd03ba304e9a932b7392e"
         }
     },
     "pre_install": [
