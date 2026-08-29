@@ -1,5 +1,5 @@
 {
-    "version": "3.1.0",
+    "version": "3.2.0",
     "description": "A powerful productivity launcher with plugin support - open-source alternative to uTools",
     "homepage": "https://github.com/ZToolsCenter/ZTools",
     "license": "MIT",
@@ -13,8 +13,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/ZToolsCenter/ZTools/releases/download/v3.1.0/ZTools-3.1.0-win-x64.zip",
-            "hash": "2bf2c9225d69b37985a061545c9cd9e8eb909a9e2587ac1a2f8ba0b13f440799"
+            "url": "https://github.com/ZToolsCenter/ZTools/releases/download/v3.2.0/ZTools-3.2.0-win-x64.zip",
+            "hash": "cfbee38dd75a139903592178baea67b827aa943b20184906d72aee2ae23456d6"
         }
     },
     "bin": "ZTools.exe",
