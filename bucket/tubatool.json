@@ -1,0 +1,94 @@
+{
+    "version": "1.6.0",
+    "description": "图吧工具箱 WinUI3 重构版，基于 WinUI 3 / .NET 10 的免费开源硬件检测与系统维护工具箱，内置 82 款便携工具",
+    "homepage": "https://tubawinui3.cn/",
+    "license": "GPL-3.0-only",
+    "notes": [
+        "图吧工具箱是硬件检测与系统维护工具集合（CPU-Z、AIDA64、CrystalDiskMark 等内置便携工具）",
+        "运行需要管理员权限，启动时会触发 UAC 提权（硬件检测/驱动功能必需）；需要 Windows 10 及以上",
+        "用户数据目录：%LOCALAPPDATA%\\TubaWinUi3\\（默认配置位置），本包通过 Junction 持久化到 Scoop persist",
+        "如在应用内将配置位置切换为“程序目录”，数据会写入安装目录的 src\\Data\\，该目录同样由 Scoop persist 管理",
+        "命令行可输入 tubatool 启动"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/luolangaga/tubatools/releases/download/v1.6.0/TubaWinUi3_Portable_1.6.0_x64.zip",
+            "hash": "11b3dd4ed403448ed26d07712ec6d1e87e26a6954eb14ffb47a444969b882327"
+        },
+        "arm64": {
+            "url": "https://github.com/luolangaga/tubatools/releases/download/v1.6.0/TubaWinUi3_Portable_1.6.0_arm64.zip",
+            "hash": "5a2450fee57596e7e39b223641cfdafa240e1ee39c4ed7a78f6f37ebbb8edb53"
+        }
+    },
+    "bin": [
+        [
+            "图吧工具箱WinUI3.exe",
+            "tubatool"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "图吧工具箱WinUI3.exe",
+            "图吧工具箱WinUI3"
+        ]
+    ],
+    "post_install": [
+        "$source = Join-Path $env:LOCALAPPDATA 'TubaWinUi3'",
+        "$target = Join-Path $persist_dir 'data'",
+        "ensure $target",
+        "",
+        "if (Test-Path $source) {",
+        "    $item = Get-Item -LiteralPath $source -Force",
+        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        Write-Host \"检测到已存在的联接点：$source，跳过创建\"",
+        "        return",
+        "    }",
+        "    if (-not $item.PSIsContainer) {",
+        "        throw \"配置路径已存在且不是目录：$source\"",
+        "    }",
+        "",
+        "    & robocopy $source $target /E /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null",
+        "    if ($LASTEXITCODE -gt 7) {",
+        "        Write-Host \"迁移失败，保留原目录：$source\"",
+        "        return",
+        "    }",
+        "",
+        "    $backup = \"$source.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')\"",
+        "    try {",
+        "        Move-Item -LiteralPath $source -Destination $backup -Force",
+        "        Write-Host \"已备份原配置目录：$backup\"",
+        "    } catch {",
+        "        Write-Host \"无法重命名原目录：$source\"",
+        "        return",
+        "    }",
+        "}",
+        "",
+        "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
+    ],
+    "post_uninstall": [
+        "$source = Join-Path $env:LOCALAPPDATA 'TubaWinUi3'",
+        "if (Test-Path $source) {",
+        "    $item = Get-Item -LiteralPath $source -Force",
+        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        Remove-Item -LiteralPath $source -Force",
+        "    }",
+        "}"
+    ],
+    "persist": [
+        "data",
+        "src\\Data"
+    ],
+    "checkver": {
+        "github": "https://github.com/luolangaga/tubatools"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/luolangaga/tubatools/releases/download/v$version/TubaWinUi3_Portable_$version_x64.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/luolangaga/tubatools/releases/download/v$version/TubaWinUi3_Portable_$version_arm64.zip"
+            }
+        }
+    }
+}
