@@ -1,12 +1,12 @@
 {
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "A modern email client built with Tauri, featuring IMAP support, search indexing and encrypted credential storage",
     "homepage": "https://github.com/QingJ01/Pebble",
     "license": "AGPL-3.0-only",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/QingJ01/Pebble/releases/download/v0.1.4/Pebble_0.1.4_x64-setup.exe#/dl.7z",
-            "hash": "5f4054c93cd3933a930daedf8b2dd3848b677617b2f5df0148de349cf670d44e"
+            "url": "https://github.com/QingJ01/Pebble/releases/download/v0.1.5/Pebble_0.1.5_x64-setup.exe#/dl.7z",
+            "hash": "799e5621771c3a7b94ad1f8b74da01d8c75bc9eb23c0bc196219243f85b17800"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
