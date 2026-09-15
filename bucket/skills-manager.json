@@ -1,5 +1,5 @@
 {
-    "version": "1.28.5",
+    "version": "1.39.1",
     "description": "Manage AI agent skills across coding tools from one central library",
     "homepage": "https://github.com/maqibg/skills-manager",
     "license": "MIT",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/maqibg/skills-manager/releases/download/v1.28.5/skills-manager_1.28.5_x64-setup.exe#/dl.7z",
-            "hash": "58cf71d075278cc92c0bd26bacf680ba31670aff18137f28aff380b0a41ac94d"
+            "url": "https://github.com/maqibg/skills-manager/releases/download/v1.39.1/skills-manager_1.39.1_x64-setup.exe#/dl.7z",
+            "hash": "89f8dadfcd2c584c4cfb337d22a373be4fc651e42ebcc98e8ad1172858285f70"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$PLUGINSDIR\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
