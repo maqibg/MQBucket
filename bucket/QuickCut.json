@@ -3,7 +3,10 @@
     "description": "Your most handy video processing software",
     "homepage": "https://github.com/HaujetZhao/QuickCut",
     "license": "MPL-2.0",
-    "notes": "手动下载地址: https://wwe.lanzoux.com/b015n2n5a#f4t3",
+    "notes": [
+        "手动下载地址: https://wwe.lanzoux.com/b015n2n5a#f4t3",
+        "上游 HaujetZhao/QuickCut 只发布 tag 与源码，不提供 Windows 构建资产，因此本包无法配置 autoupdate；checkver 提示的新版本需人工替换第三方预打包（Weidows-projects/scoop-3rd）"
+    ],
     "architecture": {
         "64bit": {
             "url": "https://github.com/Weidows-projects/scoop-3rd/releases/download/1.0.0/QuickCut.7z",
