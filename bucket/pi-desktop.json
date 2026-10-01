@@ -1,5 +1,5 @@
 {
-    "version": "0.15.10",
+    "version": "0.16.0",
     "description": "本地优先的 AI 编程智能体桌面端：Electron + Rust 宿主内核 + pi Agent Harness，插件可由用户自行安装",
     "homepage": "https://github.com/vastsa/pi-desktop",
     "license": "LGPL-3.0-only",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/vastsa/pi-desktop/releases/download/v0.15.10/PI-Desktop-Setup-0.15.10.exe#/dl.7z",
-            "hash": "a5278b0120f95f69eab04437d5f60504855087da24aa6474cef2f6a522c72e87"
+            "url": "https://github.com/vastsa/pi-desktop/releases/download/v0.16.0/PI-Desktop-Setup-0.16.0.exe#/dl.7z",
+            "hash": "82ce9c0448a9405ad570754945d49027dc046c118a5d487f413e562ec3d9bf78"
         }
     },
     "pre_install": [
