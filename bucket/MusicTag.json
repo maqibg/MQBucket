@@ -38,5 +38,15 @@
     ],
     "checkver": {
         "regex": "当前版本：([\\d.]+)"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://raw.githubusercontent.com/sqliuchang/portable_packages/main/MusicTag/MusicTag%20v$version.zip"
+            }
+        },
+        "hash": {
+            "mode": "download"
+        }
     }
 }
