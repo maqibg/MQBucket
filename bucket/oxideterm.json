@@ -1,5 +1,5 @@
 {
-    "version": "2.0.15",
+    "version": "2.2.0",
     "description": "Native Rust SSH terminal and DevOps workspace with SFTP, AI, port forwarding and plugins",
     "homepage": "https://github.com/AnalyseDeCircuit/oxideterm",
     "license": "GPL-3.0-only",
@@ -12,15 +12,15 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v2.0.15/OxideTerm_2.0.15_windows_x64-setup.exe#/dl.7z",
-            "hash": "ac041f505c176b4ba762de9fd79ff68d30eb563c84e767ed2a27d4fb4e58b882"
+            "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v2.2.0/OxideTerm_2.2.0_windows_x64-setup.exe#/dl.7z",
+            "hash": "c962972330cdd6cc4e1b406d8c6100c735203dc16add7a9ab7d43a4f1a5bfb40"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
-    "bin": "oxideterm.exe",
+    "bin": "oxideterm-native.exe",
     "shortcuts": [
         [
-            "oxideterm.exe",
+            "oxideterm-native.exe",
             "OxideTerm"
         ]
     ],
@@ -72,7 +72,7 @@
     "autoupdate": {
         "architecture": {
             "64bit": {
-                "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v$version/OxideTerm_${version}_windows_x64-setup.exe#/dl.7z"
+                "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v$version/OxideTerm_$version_windows_x64-setup.exe#/dl.7z"
             }
         },
         "hash": {
