@@ -1,6 +1,6 @@
 {
     "version": "0.8.4",
-    "description": "An app for managing GitHub starred repositories with AI-powered analysis",
+    "description": "管理 GitHub 星标仓库并支持 AI 分析的应用",
     "homepage": "https://github.com/AmintaCCCP/GithubStarsManager",
     "license": "MIT",
     "notes": [

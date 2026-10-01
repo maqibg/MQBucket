@@ -1,6 +1,6 @@
 {
     "version": "1.1.1",
-    "description": "Desktop GUI shell for Go Music DL with Web and TUI powered backend",
+    "description": "Go Music DL 的桌面图形外壳，后端由 Web 与 TUI 驱动",
     "homepage": "https://github.com/guohuiyuan/go-music-dl",
     "license": "AGPL-3.0-only",
     "notes": [

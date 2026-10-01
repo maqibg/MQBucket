@@ -1,6 +1,6 @@
 {
     "version": "3.20.4",
-    "description": "A desktop All-in-One assistant tool for Claude Code, Codex & Gemini CLI.",
+    "description": "Claude Code、Codex 与 Gemini CLI 的一体化桌面配置助手",
     "homepage": "https://github.com/farion1231/cc-switch",
     "license": "MIT",
     "architecture": {

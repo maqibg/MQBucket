@@ -1,6 +1,6 @@
 {
     "version": "3.2.0",
-    "description": "A powerful productivity launcher with plugin support - open-source alternative to uTools",
+    "description": "支持插件的强大效率启动器，uTools 的开源替代方案",
     "homepage": "https://github.com/ZToolsCenter/ZTools",
     "license": "MIT",
     "notes": [

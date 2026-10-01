@@ -1,6 +1,6 @@
 {
     "version": "1.1.5",
-    "description": "Safety-first disk cleaner and disk space analyzer for macOS and Windows, with a duplicate file finder, large file cleanup, and app uninstaller",
+    "description": "安全优先的磁盘清理与空间分析工具（macOS/Windows），支持重复文件查找、大文件清理与应用卸载",
     "homepage": "https://github.com/harry0703/MangoDisk",
     "license": "GPL-3.0-only",
     "notes": [

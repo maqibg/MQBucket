@@ -1,6 +1,6 @@
 {
     "version": "2.0.0",
-    "description": "AI-native, GPU-accelerated terminal emulator with SSH, persistent sessions, split panes, and first-class AI CLI workflows",
+    "description": "AI 原生、GPU 加速的终端模拟器，支持 SSH、会话持久化、分屏与一流的 AI CLI 工作流",
     "homepage": "https://github.com/Kuddev/pebrel",
     "license": "GPL-3.0-or-later",
     "notes": [

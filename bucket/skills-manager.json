@@ -1,6 +1,6 @@
 {
     "version": "1.39.1",
-    "description": "Manage AI agent skills across coding tools from one central library",
+    "description": "用统一的技能库管理各编程工具的 AI 智能体技能",
     "homepage": "https://github.com/maqibg/skills-manager",
     "license": "MIT",
     "notes": [

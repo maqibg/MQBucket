@@ -1,6 +1,6 @@
 {
     "version": "1.1.8",
-    "description": "A desktop toolbox for managing AI coding assistants, providers, MCP servers, skills, sessions, and proxy gateways",
+    "description": "集中管理 AI 编程助手、模型供应商、MCP 服务、技能、会话与代理网关的桌面工具箱",
     "homepage": "https://github.com/coulsontl/ai-toolbox",
     "license": "MIT",
     "notes": [

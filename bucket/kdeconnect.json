@@ -1,6 +1,6 @@
 {
     "version": "26.08-6671",
-    "description": "Communications and data transfer between devices over local networks",
+    "description": "局域网内多设备间的通信与数据传输",
     "homepage": "https://kdeconnect.kde.org",
     "license": "GPL-2.0-or-later",
     "architecture": {

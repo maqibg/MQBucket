@@ -1,6 +1,6 @@
 {
     "version": "2.1.1",
-    "description": "An intelligent AI model gateway for Claude Code, Codex, and Gemini CLI tools",
+    "description": "面向 Claude Code、Codex 与 Gemini CLI 的智能模型网关",
     "homepage": "https://github.com/mos1128/ccg-gateway",
     "license": "MIT",
     "notes": [

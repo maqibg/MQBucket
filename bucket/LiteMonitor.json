@@ -1,6 +1,6 @@
 {
     "version": "1.3.6",
-    "description": "A lightweight, customizable hardware monitor for the Windows desktop & taskbar. Features CPU/GPU/RAM/Network monitoring, FPS counter, plugin support, and memory optimization",
+    "description": "轻量可定制的 Windows 桌面与任务栏硬件监控：CPU/GPU/内存/网络监测、FPS 计数、插件支持与内存优化",
     "homepage": "https://github.com/Diorser/LiteMonitor",
     "license": "Freeware",
     "notes": [

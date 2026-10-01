@@ -1,6 +1,6 @@
 {
     "version": "0.6.6",
-    "description": "A modern MCP (Model Context Protocol) manager built with Tauri",
+    "description": "基于 Tauri 的现代 MCP（模型上下文协议）管理器",
     "homepage": "https://github.com/maqibg/moor",
     "license": "MIT",
     "notes": [

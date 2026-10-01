@@ -1,6 +1,6 @@
 {
     "version": "1.0.9.0",
-    "description": "Music Tag is an application that can edit the title, album, artist and other information of songs. It supports FLAC, APE, WAV, AIFF, WV, TTA, MP3, MP4, M4A, OGG, MPC, OPUS, WMA, DSF , DFF and other audio formats, green without ads, without any functional restrictions.",
+    "description": "音乐标签编辑工具，可修改歌曲标题、专辑、艺术家等信息，支持 FLAC、APE、WAV、TTA、MP3、M4A、OGG、OPUS、WMA、DSF 等主流音频格式，绿色无广告、功能无限制",
     "homepage": "https://www.cnblogs.com/vinlxc/p/11347744.html",
     "license": "Freeware",
     "architecture": {

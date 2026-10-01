@@ -1,6 +1,6 @@
 {
     "version": "1.3.6",
-    "description": "AI-powered e-book reader with semantic search, intelligent chat, and local knowledge management",
+    "description": "AI 电子书阅读器，支持语义搜索、智能对话与本地知识管理",
     "homepage": "https://github.com/codedogQBY/ReadAny",
     "license": "GPL-3.0-or-later",
     "notes": [

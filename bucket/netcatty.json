@@ -1,6 +1,6 @@
 {
     "version": "1.1.83",
-    "description": "Modern SSH manager and terminal app with host grouping, SFTP, keychain and port forwarding",
+    "description": "现代 SSH 管理与终端应用，支持主机分组、SFTP、密钥链与端口转发",
     "homepage": "https://github.com/binaricat/Netcatty",
     "license": "GPL-3.0-or-later",
     "notes": [

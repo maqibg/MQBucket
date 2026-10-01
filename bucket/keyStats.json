@@ -1,6 +1,6 @@
 {
     "version": "1.53",
-    "description": "Keyboard & Mouse Stats for Windows - track your typing and clicking statistics",
+    "description": "Windows 键盘与鼠标统计工具，记录打字和点击数据",
     "homepage": "https://github.com/debugtheworldbot/keyStats",
     "license": "MIT",
     "architecture": {

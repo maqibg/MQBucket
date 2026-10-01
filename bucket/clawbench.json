@@ -1,6 +1,6 @@
 {
     "version": "0.108.0",
-    "description": "Mobile-first AI workstation for running coding agents from a web interface",
+    "description": "移动优先的 AI 工作站，可通过网页界面运行编程智能体",
     "homepage": "https://github.com/clawbench-dev/clawbench",
     "license": "MIT",
     "notes": [

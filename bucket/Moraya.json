@@ -1,6 +1,6 @@
 {
     "version": "0.45.16",
-    "description": "An ultra-lightweight open-source AI Markdown editor built with Tauri v2, featuring local AI integration and MCP ecosystem",
+    "description": "基于 Tauri v2 的超轻量开源 AI Markdown 编辑器，支持本地 AI 集成与 MCP 生态",
     "homepage": "https://github.com/zouwei/moraya",
     "license": "Apache-2.0",
     "notes": [

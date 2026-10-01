@@ -1,6 +1,6 @@
 {
     "version": "26.9.4",
-    "description": "A GPU-rendered terminal workbench for shells, persistent sessions, SSH, and coding agents",
+    "description": "GPU 渲染的终端工作台，支持多种 Shell、会话持久化、SSH 与编程智能体",
     "homepage": "https://github.com/l0ng-ai/tty7",
     "license": "Apache-2.0",
     "notes": [

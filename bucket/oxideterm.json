@@ -1,6 +1,6 @@
 {
     "version": "2.2.0",
-    "description": "Native Rust SSH terminal and DevOps workspace with SFTP, AI, port forwarding and plugins",
+    "description": "原生 Rust SSH 终端与 DevOps 工作台，支持 SFTP、AI、端口转发与插件",
     "homepage": "https://github.com/AnalyseDeCircuit/oxideterm",
     "license": "GPL-3.0-only",
     "notes": [

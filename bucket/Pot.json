@@ -1,6 +1,6 @@
 {
     "version": "3.0.7",
-    "description": "一个跨平台的划词翻译和OCR软件 | A cross-platform software for text translation and recognize",
+    "description": "跨平台的划词翻译与 OCR 工具",
     "homepage": "https://pot-app.com",
     "license": "GPL-3.0-or-later",
     "notes": [

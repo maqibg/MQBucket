@@ -1,6 +1,6 @@
 {
     "version": "0.11.0",
-    "description": "Modern native dashboard for managing WSL distributions",
+    "description": "管理 WSL 发行版的现代原生面板",
     "homepage": "https://github.com/owu/wsl-dashboard",
     "license": "GPL-3.0-only",
     "url": "https://github.com/owu/wsl-dashboard/releases/download/v0.11.0/WSLDashboard.0.11.0.Portable.x64.zip",
