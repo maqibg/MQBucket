@@ -1,5 +1,5 @@
 {
-    "version": "0.8.4",
+    "version": "0.8.5",
     "description": "管理 GitHub 星标仓库并支持 AI 分析的应用",
     "homepage": "https://github.com/AmintaCCCP/GithubStarsManager",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AmintaCCCP/GithubStarsManager/releases/download/v0.8.4/GitHub.Stars.Manager.Setup.0.8.4.exe#/dl.7z",
-            "hash": "33dadbf47e3bd8a9f0508b42634d0a6b9dbe75d988f4db278bbcf8353dacaf06"
+            "url": "https://github.com/AmintaCCCP/GithubStarsManager/releases/download/v0.8.5/GitHub.Stars.Manager.Setup.0.8.5.exe#/dl.7z",
+            "hash": "43ad719270b64dc524fdafe3b4677fe6a527cba2c9c1820f3457ea29c9169bdb"
         }
     },
     "pre_install": [
