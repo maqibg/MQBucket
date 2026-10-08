@@ -1,5 +1,5 @@
 {
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "基于 Tauri 的新一代 VibeCoding 编辑器，集成 Claude Code、Codex 等 AI 编程工具",
     "homepage": "https://github.com/zhukunpenglinyutong/desktop-cc-gui",
     "license": "AGPL-3.0-only",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/zhukunpenglinyutong/desktop-cc-gui/releases/download/v1.1.1/CC.GUI_1.1.1_x64-setup.exe#/dl.7z",
-            "hash": "50ca88ed56923a1fe6c83c39c9be3e589dc1d7727804d01f1d07ac99c6600ff0"
+            "url": "https://github.com/zhukunpenglinyutong/desktop-cc-gui/releases/download/v1.1.2/CC.GUI_1.1.2_x64-setup.exe#/dl.7z",
+            "hash": "cc72eabafb7e16d2aa22f73901ea1eb324703e70bd33c83b166d594d4466fe14"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
