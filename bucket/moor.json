@@ -1,17 +1,18 @@
 {
-    "version": "0.6.6",
+    "version": "0.6.7",
     "description": "基于 Tauri 的现代 MCP（模型上下文协议）管理器",
     "homepage": "https://github.com/maqibg/moor",
     "license": "MIT",
     "notes": [
         "Moor is an MCP Manager for managing Model Context Protocol servers",
-        "User data: %APPDATA%\\com.snowautumn.moor\\",
-        "This package persists the data directory via Junction link"
+        "User data: <install dir>\\data\\, next to moor.exe (moved there in 0.6.7)",
+        "Scoop persists that directory, so it survives updates and uninstalls",
+        "Data written to %APPDATA%\\com.snowautumn.moor\\ by versions before 0.6.7 is migrated automatically on first launch"
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/maqibg/moor/releases/download/v0.6.6/Moor_0.6.6_x64-setup.exe#/dl.7z",
-            "hash": "a2804f16b515014d88d15d10525393b882a5978e6c36626ef1dda296a41632ef"
+            "url": "https://github.com/maqibg/moor/releases/download/v0.6.7/Moor_0.6.7_x64-setup.exe#/dl.7z",
+            "hash": "6e41b377417098262c01d680928f8992a5b1d8f48f4a71ee0c2d0993f74ccee2"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
@@ -21,48 +22,6 @@
             "moor.exe",
             "Moor"
         ]
-    ],
-    "post_install": [
-        "$source = Join-Path $env:APPDATA 'com.snowautumn.moor'",
-        "$target = Join-Path $persist_dir 'data'",
-        "ensure $target",
-        "",
-        "if (Test-Path $source) {",
-        "    $item = Get-Item -LiteralPath $source -Force",
-        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
-        "        Write-Host \"Junction already exists: $source\"",
-        "        return",
-        "    }",
-        "    if (-not $item.PSIsContainer) {",
-        "        throw \"Path exists and is not a directory: $source\"",
-        "    }",
-        "",
-        "    & robocopy $source $target /E /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null",
-        "    if ($LASTEXITCODE -gt 7) {",
-        "        Write-Host \"Migration failed, keeping original: $source\"",
-        "        return",
-        "    }",
-        "",
-        "    $backup = \"$source.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')\"",
-        "    try {",
-        "        Move-Item -LiteralPath $source -Destination $backup -Force",
-        "        Write-Host \"Backed up original: $backup\"",
-        "    } catch {",
-        "        Write-Host \"Cannot rename original: $source\"",
-        "        return",
-        "    }",
-        "}",
-        "",
-        "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
-    ],
-    "post_uninstall": [
-        "$source = Join-Path $env:APPDATA 'com.snowautumn.moor'",
-        "if (Test-Path $source) {",
-        "    $item = Get-Item -LiteralPath $source -Force",
-        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
-        "        Remove-Item -LiteralPath $source -Force",
-        "    }",
-        "}"
     ],
     "persist": "data",
     "checkver": {
