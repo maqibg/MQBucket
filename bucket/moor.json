@@ -1,5 +1,5 @@
 {
-    "version": "0.6.7",
+    "version": "0.6.8",
     "description": "基于 Tauri 的现代 MCP（模型上下文协议）管理器",
     "homepage": "https://github.com/maqibg/moor",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/maqibg/moor/releases/download/v0.6.7/Moor_0.6.7_x64-setup.exe#/dl.7z",
-            "hash": "6e41b377417098262c01d680928f8992a5b1d8f48f4a71ee0c2d0993f74ccee2"
+            "url": "https://github.com/maqibg/moor/releases/download/v0.6.8/Moor_0.6.8_x64-setup.exe#/dl.7z",
+            "hash": "2e1dac1c6eafaa4c96961d3e43c8e88fc2c5be8e1c3901e7e63b788243a9e797"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
