@@ -1,0 +1,39 @@
+{
+    "version": "1.3.0",
+    "description": "Windows 桌面代理订阅客户端，Qt 6 原生界面（非网页套壳），内嵌 mihomo / sing-box / xray 三种内核，支持订阅收集、真实握手测速、规则分流与本地 HTTP API",
+    "homepage": "https://github.com/mateo-ki/vcc",
+    "license": "Apache-2.0",
+    "notes": [
+        "订阅源、节点、测速结果、设置、按源拆分的分库与三种内核二进制全部位于安装目录下的 data 子目录（主库默认 data\\vcc.db），本包已用 Scoop 的持久化把它接管到 persist\\vcc\\data",
+        "数据本体在 Scoop 目录（默认 D:\\Software\\Scoop\\persist），重装系统后只要该目录还在，重新安装本包即可自动接回全部订阅、节点与设置，无需重新导入",
+        "程序启动时会把工作目录切到 exe 所在目录，data\\、内核与 startup.log 都按相对路径查找，因此不要在安装目录里手动创建同名 data 目录",
+        "内核（mihomo / sing-box / xray）与 geo 数据在首次运行时自动下载到 data\\kernels，随持久化目录一起保留，重装后无需重新下载",
+        "TUN 模式需要管理员权限（运行时自行申请 UAC）；本地 HTTP API 默认监听 127.0.0.1:8080，可用 --headless 只跑接口不开界面",
+        "升级或卸载前请先退出 VCC：数据库与内核文件被占用时，旧版本目录会删不掉"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/mateo-ki/vcc/releases/download/v1.3.0/VCC-1.3.0-win64.exe",
+            "hash": "179acee9e197117501db09e99c35dcd4ec085b7e0f8fc7a9c00872a1d4c2cf29"
+        }
+    },
+    "innosetup": true,
+    "shortcuts": [
+        [
+            "vcc.exe",
+            "VCC"
+        ]
+    ],
+    "persist": "data",
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/mateo-ki/vcc/releases/download/v$version/VCC-$version-win64.exe"
+            }
+        },
+        "hash": {
+            "mode": "download"
+        }
+    }
+}
