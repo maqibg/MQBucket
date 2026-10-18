@@ -1,0 +1,97 @@
+{
+    "version": "0.9.1",
+    "description": "基于 ClashMeta 的多平台代理客户端，界面简洁、开源无广告",
+    "homepage": "https://github.com/chen08209/FlClash",
+    "license": "GPL-3.0-only",
+    "notes": [
+        "订阅、配置、规则缓存、数据库与界面设置全部保存在 %APPDATA%\\com.follow\\clash，本包已用目录联接把它接管到 Scoop 的持久化目录 persist\\FlClash\\data",
+        "数据本体位于 Scoop 目录（默认在 D:\\Software\\Scoop\\persist），重装系统后只要该目录还在，重新安装本包即可自动接回原有订阅与设置，无需重新导入",
+        "该路径来自应用可执行文件里的公司名 com.follow 与产品名 clash，不是显示名 FlClash",
+        "首次安装时若该目录已存在旧数据，安装脚本会先整体复制进持久化目录，原目录改名保留为 *.backup-时间戳 备份，确认无误后可自行删除备份",
+        "开启 TUN 模式会安装系统服务 FlClashHelperService：卸载或更新前请先在应用内关闭 TUN 并退出 FlClash，否则旧版本目录可能删不掉",
+        "地理数据库（GEOIP/GEOSITE/ASN）约 45 MB，属于可重新下载的公共数据，随持久化目录一起保留"
+    ],
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/chen08209/FlClash/releases/download/v0.9.1/FlClash-0.9.1-windows-amd64.zip",
+            "hash": "f943ceb96fdf0bce8ddf080292f6009631b3be29250b7438701b7e8162840f21"
+        },
+        "arm64": {
+            "url": "https://github.com/chen08209/FlClash/releases/download/v0.9.1/FlClash-0.9.1-windows-arm64.zip",
+            "hash": "dc717766d5117139f234087438433f80062170bc511a58fef5e77faf125e5e9d"
+        }
+    },
+    "shortcuts": [
+        [
+            "FlClash.exe",
+            "FlClash"
+        ]
+    ],
+    "post_install": [
+        "$source = Join-Path $env:APPDATA 'com.follow\\clash'",
+        "$target = Join-Path $persist_dir 'data'",
+        "ensure $target",
+        "ensure (Split-Path -Parent $source)",
+        "",
+        "if (Test-Path -LiteralPath $source) {",
+        "    $item = Get-Item -LiteralPath $source -Force",
+        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        $expected = [IO.Path]::GetFullPath($target).TrimEnd('\\')",
+        "        $actual = @($item.Target) | Select-Object -First 1",
+        "        if ($actual -and [IO.Path]::GetFullPath($actual).TrimEnd('\\') -ieq $expected) {",
+        "            Write-Host \"数据目录已由本包接管：$source\"",
+        "            return",
+        "        }",
+        "        throw \"数据路径已是指向其它位置的联接点，未做任何改动：$source\"",
+        "    }",
+        "    if (-not $item.PSIsContainer) {",
+        "        throw \"数据路径已存在且不是目录：$source\"",
+        "    }",
+        "",
+        "    & robocopy $source $target /E /R:1 /W:1 /NFL /NDL /NJH /NJS /NP | Out-Null",
+        "    if ($LASTEXITCODE -gt 7) {",
+        "        Write-Host \"迁移失败，保留原目录未做改动：$source\"",
+        "        return",
+        "    }",
+        "",
+        "    $backup = \"$source.backup-$(Get-Date -Format 'yyyyMMdd-HHmmss')\"",
+        "    try {",
+        "        Move-Item -LiteralPath $source -Destination $backup -Force",
+        "        Write-Host \"原有数据已迁移并保留备份：$backup\"",
+        "    } catch {",
+        "        Write-Host \"无法重命名原目录，保留原状：$source\"",
+        "        return",
+        "    }",
+        "}",
+        "",
+        "New-Item -Path $source -ItemType Junction -Value $target | Out-Null"
+    ],
+    "post_uninstall": [
+        "$source = Join-Path $env:APPDATA 'com.follow\\clash'",
+        "$expected = [IO.Path]::GetFullPath((Join-Path $persist_dir 'data')).TrimEnd('\\')",
+        "if (Test-Path -LiteralPath $source) {",
+        "    $item = Get-Item -LiteralPath $source -Force",
+        "    if ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) {",
+        "        $actual = @($item.Target) | Select-Object -First 1",
+        "        if ($actual -and [IO.Path]::GetFullPath($actual).TrimEnd('\\') -ieq $expected) {",
+        "            Remove-Item -LiteralPath $source -Force",
+        "            Write-Host \"已移除联接，数据仍保留在 $expected\"",
+        "        }",
+        "    }",
+        "}"
+    ],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/chen08209/FlClash/releases/download/v$version/FlClash-$version-windows-amd64.zip"
+            },
+            "arm64": {
+                "url": "https://github.com/chen08209/FlClash/releases/download/v$version/FlClash-$version-windows-arm64.zip"
+            }
+        },
+        "hash": {
+            "url": "$baseurl/SHA256SUMS"
+        }
+    }
+}
