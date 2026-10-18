@@ -1,5 +1,5 @@
 {
-    "version": "1.1.83",
+    "version": "1.1.85",
     "description": "现代 SSH 管理与终端应用，支持主机分组、SFTP、密钥链与端口转发",
     "homepage": "https://github.com/binaricat/Netcatty",
     "license": "GPL-3.0-or-later",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/binaricat/Netcatty/releases/download/v1.1.83/Netcatty-1.1.83-win-x64.exe#/dl.7z",
-            "hash": "2307e81cabb9c7d397cfcbca00842eb2207ad5b563336ce8b99d808d1560b921"
+            "url": "https://github.com/binaricat/Netcatty/releases/download/v1.1.85/Netcatty-1.1.85-win-x64.exe#/dl.7z",
+            "hash": "de4c937af6e255ca42db6e17ec2ee24a64845a305789bc2b6588f7e0005ed005"
         }
     },
     "pre_install": [
