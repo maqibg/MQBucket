@@ -1,12 +1,12 @@
 {
-    "version": "26.08-6765",
+    "version": "26.08-6794",
     "description": "局域网内多设备间的通信与数据传输",
     "homepage": "https://kdeconnect.kde.org",
     "license": "GPL-2.0-or-later",
     "architecture": {
         "64bit": {
-            "url": "https://cdn.kde.org/ci-builds/network/kdeconnect-kde/release-26.08/windows/kdeconnect-kde-release_26.08-6765-windows-cl-msvc2022-x86_64.7z",
-            "hash": "d04a7897022626d332c0fa2edd3e81cbac674edd11878419a74514e76f41be5a"
+            "url": "https://cdn.kde.org/ci-builds/network/kdeconnect-kde/release-26.08/windows/kdeconnect-kde-release_26.08-6794-windows-cl-msvc2022-x86_64.7z",
+            "hash": "d864fd2fadcbf8603f8d9a66d6ddbdd7eaa4ac68a841b7458a81cd6f43e59967"
         }
     },
     "bin": "bin\\kdeconnect-cli.exe",
