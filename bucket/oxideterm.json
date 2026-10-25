@@ -1,5 +1,5 @@
 {
-    "version": "2.2.5",
+    "version": "2.2.6",
     "description": "原生 Rust SSH 终端与 DevOps 工作台，支持 SFTP、AI、端口转发与插件",
     "homepage": "https://github.com/AnalyseDeCircuit/oxideterm",
     "license": "GPL-3.0-only",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v2.2.5/OxideTerm_2.2.5_windows_x64-setup.exe#/dl.7z",
-            "hash": "1090d3dc03eac44f3e83bc1557320f490a692db5df411fb7cc2a84867bb78839"
+            "url": "https://github.com/AnalyseDeCircuit/oxideterm/releases/download/v2.2.6/OxideTerm_2.2.6_windows_x64-setup.exe#/dl.7z",
+            "hash": "d8fdb3ef97602967d74279d6c5d8a6db67412dd379e8ff8b25c788922a018f5e"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
