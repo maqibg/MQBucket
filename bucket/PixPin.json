@@ -1,10 +1,10 @@
 {
     "homepage": "https://pixpinapp.com/",
     "description": "功能强大、简单易用的截图与贴图工具，帮你提高效率",
-    "version": "3.5.5.1",
+    "version": "3.6.6.0",
     "license": "Freeware",
-    "url": "https://down.pixpin.cn/PixPin_win_3.5.5.1.exe",
-    "hash": "5b88ce37a7c3dd244e2e48e0728f7fb03f108e770bf864ca68197a24e9a687e2",
+    "url": "https://down.pixpin.cn/PixPin_win_3.6.6.0.exe",
+    "hash": "510c1543e60bd0d87c1e0c0ee22ba4cfa4efc69de7feab3433920ecf04fa2d5b",
     "innosetup": true,
     "shortcuts": [
         [
