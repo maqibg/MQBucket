@@ -1,5 +1,5 @@
 {
-    "version": "0.8.0",
+    "version": "0.8.1",
     "description": "Rust + Slint 编写的轻量 SSH/终端客户端，风格类似 FinalShell",
     "homepage": "https://github.com/jeff141/meatshell",
     "license": "MIT OR Apache-2.0",
@@ -10,9 +10,9 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/jeff141/meatshell/releases/download/v0.8.0/meatshell-v0.8.0-windows-x86_64.zip",
-            "hash": "f22e7d99a048e34f50e29799692368fcfa055fe102a92d2c3910219320320def",
-            "extract_dir": "meatshell-v0.8.0-windows-x86_64"
+            "url": "https://github.com/jeff141/meatshell/releases/download/v0.8.1/meatshell-v0.8.1-windows-x86_64.zip",
+            "hash": "da6a4cceff2671f2bb758f724c4a620064d1e2bc2f144e6e8966ab2d81f5ea3c",
+            "extract_dir": "meatshell-v0.8.1-windows-x86_64"
         }
     },
     "bin": "meatshell.exe",
