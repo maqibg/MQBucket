@@ -1,5 +1,5 @@
 {
-    "version": "1.2.2",
+    "version": "1.2.3",
     "description": "安全优先的磁盘清理与空间分析工具（macOS/Windows），支持重复文件查找、大文件清理与应用卸载",
     "homepage": "https://github.com/harry0703/MangoDisk",
     "license": "GPL-3.0-only",
@@ -12,8 +12,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/harry0703/MangoDisk/releases/download/v1.2.2/MangoDisk-1.2.2-windows.exe#/dl.7z",
-            "hash": "e38b2d020eb7e32adfe8e3413679e597e17cd15a2c438b584c3a596d070491e7"
+            "url": "https://github.com/harry0703/MangoDisk/releases/download/v1.2.3/MangoDisk-1.2.3-windows.exe#/dl.7z",
+            "hash": "b1f5c78aac2370895179b55779cc18da1d052081cc2ba7c8fbe7288e9b35d5b8"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
