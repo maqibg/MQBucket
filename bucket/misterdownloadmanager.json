@@ -1,0 +1,39 @@
+{
+    "version": "0.5.2",
+    "description": "用 Rust 从零编写的开源下载管理器，支持多线程分段下载、浏览器扩展与 MCP 接口",
+    "homepage": "https://github.com/anefzaoui/misterdownloadmanager",
+    "license": "GPL-3.0-or-later",
+    "notes": [
+        "使用便携版：下载列表与设置保存在安装目录的 data\\ 下，不写注册表、不碰用户配置目录",
+        "data\\downloads.json 是下载记录，data\\logs\\ 是日志，均由 Scoop persist 管理，升级不丢",
+        "浏览器扩展需要注册本机消息宿主，官方安装器会做这一步；本包不含该注册，需要扩展联动时请用官方 setup.exe",
+        "extension\\ 目录内有现成的 Chromium 与 Firefox 扩展，可手动加载",
+        "附带命令行工具 misterdownloadmanager-cli 与 MCP 服务 misterdownloadmanager-mcp",
+        "命令行可输入 misterdownloadmanager 启动"
+    ],
+    "url": "https://github.com/anefzaoui/misterdownloadmanager/releases/download/v0.5.2/MisterDownloadManager-0.5.2-portable.zip",
+    "hash": "0907a6c6aed5c4967e89549e883147d2b33b073e6f8b0d914dff84d32f3b7cf7",
+    "extract_dir": "MisterDownloadManager-0.5.2-portable",
+    "bin": [
+        [
+            "misterdownloadmanager.exe",
+            "misterdownloadmanager"
+        ],
+        [
+            "misterdownloadmanager-cli.exe",
+            "misterdownloadmanager-cli"
+        ]
+    ],
+    "shortcuts": [
+        [
+            "misterdownloadmanager.exe",
+            "Mister Download Manager"
+        ]
+    ],
+    "persist": "data",
+    "checkver": "github",
+    "autoupdate": {
+        "url": "https://github.com/anefzaoui/misterdownloadmanager/releases/download/v$version/MisterDownloadManager-$version-portable.zip",
+        "extract_dir": "MisterDownloadManager-$version-portable"
+    }
+}
