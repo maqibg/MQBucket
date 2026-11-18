@@ -1,10 +1,10 @@
 {
-    "version": "1.4.0",
+    "version": "1.4.2",
     "description": "通用 AI IDE 账号管理工具",
     "homepage": "https://github.com/jlcodes99/cockpit-tools/",
     "license": "Unknown",
-    "url": "https://github.com/jlcodes99/cockpit-tools/releases/download/v1.4.0/Cockpit.Tools_1.4.0_x64-setup.exe#/dl.7z",
-    "hash": "917fbf0c1f5175e989b8062ae35a6eee74c5fe5618e34859adfa3d9a6e28cbc8",
+    "url": "https://github.com/jlcodes99/cockpit-tools/releases/download/v1.4.2/Cockpit.Tools_1.4.2_x64-setup.exe#/dl.7z",
+    "hash": "c2bd7c9c5d65142de92f312f22c9abc6b67f31571a1042a5b245ca71973ac87c",
     "shortcuts": [
         [
             "cockpit-tools.exe",
