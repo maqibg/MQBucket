@@ -1,5 +1,5 @@
 {
-    "version": "0.8.5",
+    "version": "0.8.6",
     "description": "全球首个开源 AI 原生矢量设计工具，支持并发 Agent Teams，是 Pencil 的 Design-as-Code 替代方案",
     "homepage": "https://github.com/ZSeven-W/openpencil",
     "license": "MIT",
@@ -11,8 +11,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/ZSeven-W/openpencil/releases/download/v0.8.5/openpencil-desktop-windows-x86_64.zip",
-            "hash": "5718043af5eca0b124f5521a22c32954df5760eeb9a34fdf2690ab972964e801"
+            "url": "https://github.com/ZSeven-W/openpencil/releases/download/v0.8.6/openpencil-desktop-windows-x86_64.zip",
+            "hash": "b38cc78eec00776b2f2faea235bcbcb83edff702416b4359c7d48fabb1da6ae0"
         }
     },
     "bin": [
