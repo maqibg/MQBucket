@@ -1,5 +1,5 @@
 {
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "集中管理 AI 编程助手、模型供应商、MCP 服务、技能、会话与代理网关的桌面工具箱",
     "homepage": "https://github.com/coulsontl/ai-toolbox",
     "license": "MIT",
@@ -10,8 +10,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/coulsontl/ai-toolbox/releases/download/v1.2.3/AI.Toolbox_1.2.3_x64-setup.exe#/dl.7z",
-            "hash": "31032cbe678cd6c964ddbcfb989ae60784334ab5f6a5544b65d3657453b7f30b"
+            "url": "https://github.com/coulsontl/ai-toolbox/releases/download/v1.2.4/AI.Toolbox_1.2.4_x64-setup.exe#/dl.7z",
+            "hash": "18bcc90b64c7ba27ebd76694cccc915b5e28b950400abc1181c0792b2a08c033"
         }
     },
     "pre_install": "Remove-Item \"$dir\\`$*\", \"$dir\\uninstall.exe\" -Force -Recurse -ErrorAction SilentlyContinue",
