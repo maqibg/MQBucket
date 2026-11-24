@@ -1,5 +1,5 @@
 {
-    "version": "1.1.8",
+    "version": "1.1.7",
     "description": "Go Music DL 的桌面图形外壳，后端由 Web 与 TUI 驱动",
     "homepage": "https://github.com/guohuiyuan/go-music-dl",
     "license": "AGPL-3.0-only",
@@ -15,8 +15,8 @@
     ],
     "architecture": {
         "64bit": {
-            "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v1.1.8/music-dl-desktop-go_windows_amd64.zip",
-            "hash": "fda2a603a768e5ea1e1fe67528f2158ec11ac727c8b118394c80a389027d3f9f"
+            "url": "https://github.com/guohuiyuan/go-music-dl/releases/download/v1.1.7/music-dl-desktop-go_windows_amd64.zip",
+            "hash": "c836fc82269a283a10b7ee7104c6152c415a5bdd3bff3a54aa399c00671edfaf"
         }
     },
     "pre_install": [
